@@ -40,7 +40,7 @@ class Public1 extends Component {
       <div>
         <div className="row">
           <div className="col-sm-12 col-md-10 col-lg-6">
-            <h3>Public Page</h3>
+            <h3>Public Page 1</h3>
             <ReactCSSTransitionGroup
               transitionName="transition"
               transitionEnterTimeout={700}

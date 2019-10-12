@@ -132,7 +132,7 @@ class SignIn extends Component {
       <div>
         <div className="row">
           <div className="col-sm-4 col-md-4 col-lg-4 form-header">
-            <h4>Sign In {this.props.company.name && `- ${this.props.company.name}`}</h4>
+            <h4>Sign In { this.props.company.name && `- ${this.props.company.name}`}</h4>
             <div className="pull-right">
               Please enter email and password. Or <NavLink to="/signup">Sign up for a new account</NavLink>
             </div>
@@ -141,13 +141,13 @@ class SignIn extends Component {
         <div className="row">
           <div className="col-sm-4 col-md-4 col-lg-4">
             <form className="form-horizontal" action="/" onSubmit={this.submit}>
-              <div className={'form-group ' + (!validation.email.valid && validation.email.touched ? 'has-error' : '')}>
+              <div className={'form-group '+ (!validation.email.valid && validation.email.touched ? 'has-error' : '')}>
                 <label className="col-sm-2 control-label" htmlFor="email">Email</label>
                 <div className="col-sm-10">
                   <input type="email" className="form-control" id="email" name="email" placeholder="Email" onChange={this.changeInput} />
                 </div>
               </div>
-              <div className={'form-group ' + (!validation.password.valid && validation.password.touched ? 'has-error' : '')}>
+              <div className={'form-group '+ (!validation.password.valid && validation.password.touched ? 'has-error' : '')}>
                 <label className="col-sm-2 control-label" htmlFor="password">Password</label>
                 <div className="col-sm-10">
                   <input type="password" className="form-control" id="password" name="password" placeholder="Password" onChange={this.changeInput} />

@@ -143,25 +143,25 @@ class SignUp extends Component {
         <div className="row">
           <div className="col-sm-4 col-md-4 col-lg-4">
             <form className="form-horizontal" action="/" onSubmit={this.submit}>
-              <div className={'form-group ' + (!validation.name.valid && validation.name.touched ? 'has-error' : '')}>
+              <div className={'form-group '+ (!validation.name.valid && validation.name.touched ? 'has-error' : '')}>
                 <label className="col-sm-2 control-label" htmlFor="name">Name</label>
                 <div className="col-sm-10">
                   <input type="text" className="form-control" id="name" name="name" placeholder="Name" onChange={this.changeInput} />
                 </div>
               </div>
-              <div className={'form-group ' + (!validation.email.valid && validation.email.touched ? 'has-error' : '')}>
+              <div className={'form-group '+ (!validation.email.valid && validation.email.touched ? 'has-error' : '')}>
                 <label className="col-sm-2 control-label" htmlFor="email">Email</label>
                 <div className="col-sm-10">
                   <input type="email" className="form-control" id="email" name="email" placeholder="Email" onChange={this.changeInput} />
                 </div>
               </div>
-              <div className={'form-group ' + (!validation.password.valid && validation.password.touched ? 'has-error' : '')}>
+              <div className={'form-group '+ (!validation.password.valid && validation.password.touched ? 'has-error' : '')}>
                 <label className="col-sm-2 control-label" htmlFor="password">Password</label>
                 <div className="col-sm-10">
                   <input type="password" className="form-control" id="password" name="password" placeholder="Password" onChange={this.changeInput} />
                 </div>
               </div>
-              <div className={'form-group ' + (!validation.passwordConfirm.valid && validation.passwordConfirm.touched ? 'has-error' : '')}>
+              <div className={'form-group '+ (!validation.passwordConfirm.valid && validation.passwordConfirm.touched ? 'has-error' : '')}>
                 <label className="col-sm-2 control-label" htmlFor="passwordConfirm">Confirm</label>
                 <div className="col-sm-10">
                   <input type="password" className="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm Password" autoComplete="off" onChange={this.changeInput} />

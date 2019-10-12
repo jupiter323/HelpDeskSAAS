@@ -1,4 +1,5 @@
 import Auth from '../modules/auth';
+
 const Request =
   (function () {
 
