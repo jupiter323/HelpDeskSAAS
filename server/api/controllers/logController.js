@@ -4,13 +4,16 @@ const logger = require('../../main/common/logger');
 
 const fromHours = -24 * 7; // Default to a week back (Winston query will default to 24 hours)
 
-exports.list = function(req, res, next) {
+exports.list = function (req, res, next) {
 
   // https://github.com/winstonjs/winston#querying-logs
+  var limit = parseInt(req.query['limit'], 10) || 100;
+  var start = parseInt(req.query['start'], 10) || 0;
+  var order = parseInt(req.query['order'], 10) || 'desc'
   const options = {
-    start: req.query['start'] || 0,
-    limit: req.query['limit'] || 100,
-    order: req.query['order'] || 'desc'
+    start,
+    limit,
+    order
     // fields: ['message', 'level'],
     // type: 'console'
     // type: 'mongodb'

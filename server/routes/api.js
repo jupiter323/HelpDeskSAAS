@@ -6,6 +6,7 @@ const Roles = require('../../src/shared/roles');
 const messageController = require('../api/controllers/messageController');
 const userController = require('../api/controllers/userController');
 const companyController = require('../api/controllers/companyController');
+const ticketController = require('../api/controllers/ticketController');
 const logController = require('../api/controllers/logController');
 
 
@@ -63,5 +64,9 @@ router.delete('/companies/:id', authCheck([Roles.siteAdmin]), companyController.
 // GET /api/companies
 router.get('/logs', authCheck([Roles.siteAdmin]), logController.list);
 
+// GET /api/tickets
+router.get('/tickets', ticketController.list);
 
+// POST /api/tickets
+router.post('/tickets', ticketController.new);
 module.exports = router;

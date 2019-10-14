@@ -27,6 +27,7 @@ import CompanyDelete from '../pages/private/site-admin/company-delete';
 
 import Logs from '../pages/private/site-admin/logs';
 
+import Tickets from '../pages/private/companyUser/tickets';
 class MainRoutes extends React.Component {
   render() {
     return (
@@ -42,6 +43,7 @@ class MainRoutes extends React.Component {
             <Route exact path="/profile/password" render={(props) => (<ProfilePassword {...props} user={Auth.getUser()} />)} />
             <Route exact path="/profile" render={(props) => (<Profile {...props} user={Auth.getUser()} />)} />
             <Route exact path="/private1" component={Private1} />
+            <Route exact path="/tickets" component={Tickets} />
 
             <Route exact path="/admin1" userRoles="Admin,SiteAdmin" component={Admin1} />
 

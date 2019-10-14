@@ -29,8 +29,8 @@ class NavBar extends React.Component {
               {this.props.company.name ? (
                 this.props.company.name
               ) : (
-                <div>Help Desk React Node.js</div>
-              )}
+                  <div>Help Desk React Node.js</div>
+                )}
             </NavLink>
           </div>
 
@@ -38,73 +38,75 @@ class NavBar extends React.Component {
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav">
               <li><NavLink to="/public1" activeClassName="active">Public</NavLink></li>
-              {isAuthenticated && <li><NavLink to="/private1" activeClassName="active">Private</NavLink></li> }
+              {isAuthenticated && <li><NavLink to="/private1" activeClassName="active">Private</NavLink></li>}
+
+              {isAuthenticated && (this.props.company.name || user.role === Roles.siteAdmin) && < li > <NavLink to="/tickets" activeClassName="active">Tickets</NavLink></li>}
               {isAuthenticated && user.role === Roles.admin &&
-                <li className="dropdown">
-                  <a className="dropdown-toggle" href="#" data-toggle="dropdown">
-                    Admin
-                    <b className="caret" />
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li><NavLink to="/admin1" activeClassName="active">Admin Page</NavLink></li>
-                    <li role="separator" className="divider" />
-                    <li><NavLink to="/admin/users" activeClassName="active">Users</NavLink></li>
-                  </ul>
-                </li>
-              }
-              {isAuthenticated && user.role === Roles.siteAdmin &&
-                <li className="dropdown">
-                  <a className="dropdown-toggle" href="#" data-toggle="dropdown">
-                    Admin
-                    <b className="caret" />
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li><NavLink to="/admin1" activeClassName="active">Admin Page</NavLink></li>
-                    <li role="separator" className="divider" />
-                    <li><NavLink to="/siteadmin/companies" activeClassName="active">Company Admin</NavLink></li>
-                    <li><NavLink to="/admin/users" activeClassName="active">All Users</NavLink></li>
-                    <li><NavLink to="/siteadmin/companies/unassociated/users" activeClassName="active">Unassociated Users</NavLink></li>
-                    <li role="separator" className="divider" />
-                    <li><NavLink to="/siteadmin/logs?limit=200&start=0" activeClassName="active">Logs</NavLink></li>
-                  </ul>
-                </li>
-              }
               <li className="dropdown">
                 <a className="dropdown-toggle" href="#" data-toggle="dropdown">
-                  About
-                  <b className="caret" />
+                  Admin
+                    <b className="caret" />
                 </a>
                 <ul className="dropdown-menu">
-                  <li>
-                    <a href="" data-toggle="modal" data-target="#modal-about">About: Help Desk Role Based Permissions</a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/jupitergod/HelpDeskSAAS" target="_blank" rel="noopener noreferrer">Source Code on GitHub</a>
-                  </li>
+                  <li><NavLink to="/admin1" activeClassName="active">Admin Page</NavLink></li>
+                  <li role="separator" className="divider" />
+                  <li><NavLink to="/admin/users" activeClassName="active">Users</NavLink></li>
+                </ul>
+              </li>
+            }
+            {isAuthenticated && user.role === Roles.siteAdmin &&
+              <li className="dropdown">
+                <a className="dropdown-toggle" href="#" data-toggle="dropdown">
+                  Admin
+                    <b className="caret" />
+                </a>
+                <ul className="dropdown-menu">
+                  <li><NavLink to="/admin1" activeClassName="active">Admin Page</NavLink></li>
+                  <li role="separator" className="divider" />
+                  <li><NavLink to="/siteadmin/companies" activeClassName="active">Company Admin</NavLink></li>
+                  <li><NavLink to="/admin/users" activeClassName="active">All Users</NavLink></li>
+                  <li><NavLink to="/siteadmin/companies/unassociated/users" activeClassName="active">Unassociated Users</NavLink></li>
+                  <li role="separator" className="divider" />
+                  <li><NavLink to="/siteadmin/logs?limit=200&start=0" activeClassName="active">Logs</NavLink></li>
+                </ul>
+              </li>
+            }
+            <li className="dropdown">
+              <a className="dropdown-toggle" href="#" data-toggle="dropdown">
+                About
+                  <b className="caret" />
+              </a>
+              <ul className="dropdown-menu">
+                <li>
+                  <a href="" data-toggle="modal" data-target="#modal-about">About: Help Desk Role Based Permissions</a>
+                </li>
+                <li>
+                  <a href="https://github.com/jupitergod/HelpDeskSAAS" target="_blank" rel="noopener noreferrer">Source Code on GitHub</a>
+                </li>
+              </ul>
+            </li>
+            </ul>
+          {isAuthenticated ? (
+            <ul className="nav navbar-nav pull-right">
+              <li className="dropdown">
+                <a className="dropdown-toggle" href="#" data-toggle="dropdown">
+                  {user.name}
+                  <b className="caret" />
+                </a>
+                <ul className="dropdown-menu dropdown-menu-right">
+                  <li><NavLink to="/profile" activeClassName="active">Profile</NavLink></li>
+                  <li><NavLink to="#" activeClassName="active" onClick={this.signOut}>Sign Out</NavLink></li>
                 </ul>
               </li>
             </ul>
-            {isAuthenticated ? (
-              <ul className="nav navbar-nav pull-right">
-                <li className="dropdown">
-                  <a className="dropdown-toggle" href="#" data-toggle="dropdown">
-                    {user.name}
-                    <b className="caret" />
-                  </a>
-                  <ul className="dropdown-menu dropdown-menu-right">
-                    <li><NavLink to="/profile" activeClassName="active">Profile</NavLink></li>
-                    <li><NavLink to="#" activeClassName="active" onClick={this.signOut}>Sign Out</NavLink></li>
-                  </ul>
-                </li>
-              </ul>
-            ) : (
+          ) : (
               <ul className="nav navbar-nav pull-right">
                 <li><NavLink to="/signin" activeClassName="active">Sign In</NavLink></li>
               </ul>
             )}
-          </div>{/* /.navbar-collapse */}
-        </div>{/* /.container-fluid */}
-      </nav>
+        </div>{/* /.navbar-collapse */}
+        </div>{/* /.container-fluid */ }
+      </nav >
     );
   }
 }
