@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import CompanyService from '../../../services/company-service';
-import CompanyEditForm from '../../../components/company-edit-form';
+import TicketService from '../../../services/ticket-service';
+import TicketEditForm from '../../../components/ticket-edit-form';
 
-class CompanyNew extends Component {
+class TicketNew extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       errors: [],
-      company: { name: '', subdomain: '' }
+      ticket: { name: '', message: '' }
     };
 
     this.submit = this.submit.bind(this);
@@ -19,11 +19,11 @@ class CompanyNew extends Component {
   submit(evt) {
     evt.preventDefault();
 
-    CompanyService.newCompany(this.state.company, (err, data) => {
+    TicketService.newTicket(this.state.ticket, (err, data) => {
       if (err || (data && !data.success)) {
         this.setState({ errors: data && data.errors ? data.errors : [err.message] });
       } else if (data && data.success) {
-        this.props.history.push('/siteadmin/companies');
+        this.props.history.push('/companyuser/tickets');
       }
     });
   }
@@ -33,12 +33,12 @@ class CompanyNew extends Component {
       <div>
         <div className="row">
           <div className="col-sm-5 col-md-5 col-lg-5 form-header">
-            <h4>Add Company</h4>
+            <h4>Add Ticket</h4>
           </div>
         </div>
         <div className="row">
-          <CompanyEditForm
-            company={this.state.company}
+          <TicketEditForm
+            ticket={this.state.ticket}
             submit={this.submit}
             errors={this.state.errors}
             history={this.props.history}
@@ -48,10 +48,10 @@ class CompanyNew extends Component {
     );
   }
 }
-CompanyNew.propTypes = {
+TicketNew.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired
 };
 
-export default CompanyNew;
+export default TicketNew;

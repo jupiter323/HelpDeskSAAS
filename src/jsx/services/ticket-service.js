@@ -46,7 +46,7 @@ const TicketService = {
   },
 
   /**
-   * Add new company
+   * Add new ticket
    *
    * @param {object}   company company object to add
    * @param {function} callback (err, data)
@@ -54,9 +54,9 @@ const TicketService = {
                        error {object}: null if no error
                        data {object}: The data set of a succesful call
    */
-  newCompany: (company, callback) => {
+  newTicket: (ticket, callback) => {
     if (!$.isFunction(callback)) throw new Error('callback function is required');
-    Request.post('/api/companies', JSON.stringify({ company /* :company */ }), callback);
+    Request.post('/api/tickets', JSON.stringify({ ticket /* :ticket */ }), callback);
   },
 
   /**

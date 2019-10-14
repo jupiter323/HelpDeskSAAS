@@ -40,7 +40,7 @@ class NavBar extends React.Component {
               <li><NavLink to="/public1" activeClassName="active">Public</NavLink></li>
               {isAuthenticated && <li><NavLink to="/private1" activeClassName="active">Private</NavLink></li>}
 
-              {isAuthenticated && (this.props.company.name || user.role === Roles.siteAdmin) && < li > <NavLink to="/tickets" activeClassName="active">Tickets</NavLink></li>}
+              {isAuthenticated && (this.props.company.name || user.role === Roles.siteAdmin) && < li > <NavLink to="/companyuser/tickets" activeClassName="active">Tickets</NavLink></li>}
               {isAuthenticated && user.role === Roles.admin &&
               <li className="dropdown">
                 <a className="dropdown-toggle" href="#" data-toggle="dropdown">

@@ -65,8 +65,8 @@ router.delete('/companies/:id', authCheck([Roles.siteAdmin]), companyController.
 router.get('/logs', authCheck([Roles.siteAdmin]), logController.list);
 
 // GET /api/tickets
-router.get('/tickets', ticketController.list);
+router.get('/tickets',authCheck(), ticketController.list);
 
 // POST /api/tickets
-router.post('/tickets', ticketController.new);
+router.post('/tickets',authCheck(), ticketController.new);
 module.exports = router;

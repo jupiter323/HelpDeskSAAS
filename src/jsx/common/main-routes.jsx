@@ -27,7 +27,10 @@ import CompanyDelete from '../pages/private/site-admin/company-delete';
 
 import Logs from '../pages/private/site-admin/logs';
 
-import Tickets from '../pages/private/companyUser/tickets';
+import Tickets from '../pages/private/company-user/tickets';
+import TicketNew from '../pages/private/company-user/ticket-new';
+import TicketEdit from '../pages/private/company-user/ticket-edit';
+import TicketDelete from '../pages/private/company-user/ticket-delete';
 class MainRoutes extends React.Component {
   render() {
     return (
@@ -43,7 +46,6 @@ class MainRoutes extends React.Component {
             <Route exact path="/profile/password" render={(props) => (<ProfilePassword {...props} user={Auth.getUser()} />)} />
             <Route exact path="/profile" render={(props) => (<Profile {...props} user={Auth.getUser()} />)} />
             <Route exact path="/private1" component={Private1} />
-            <Route exact path="/tickets" component={Tickets} />
 
             <Route exact path="/admin1" userRoles="Admin,SiteAdmin" component={Admin1} />
 
@@ -60,6 +62,12 @@ class MainRoutes extends React.Component {
             <Route exact path="/siteadmin/companies/:companyId/users" userRoles="SiteAdmin" render={(props) => (<Users {...props} role={Auth.getRole()} />)} />
 
             <Route exact path="/siteadmin/logs" userRoles="SiteAdmin" component={Logs} />
+
+            <Route exact path="/companyuser/tickets" render={(props) => (<Tickets {...props} role={Auth.getRole()} />)} />
+            <Route exact path="/companyuser/tickets/new" render={(props) => (<TicketNew {...props} role={Auth.getRole()} />)} />
+            <Route exact path="/companyuser/tickets/edit/:id" render={(props) => (<TicketEdit {...props} role={Auth.getRole()} />)} />
+            <Route exact path="/companyuser/tickets/delete/:id" render={(props) => (<TicketDelete {...props} role={Auth.getRole()} />)} />
+
           </Switch>
         </PrivateRoutes>
 

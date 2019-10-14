@@ -4,15 +4,23 @@ const timestamps = require('mongoose-timestamp');
 const Schema = mongoose.Schema;
 // Define the Ticket model schema
 const TicketSchema = new mongoose.Schema({
-  from: {  
+  startBy: {  
       type: Schema.ObjectId,
       default: null,
-      ref: 'From' 
+      ref: 'StartBy' 
   },
-  to: {
+  company: {
     type: Schema.ObjectId,
     default: null,
-    ref: 'To' 
+    ref: 'Company' 
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  messages: {
+    type: Object,
+    required:true
   }
 }, {
   toObject: { virtuals: true },

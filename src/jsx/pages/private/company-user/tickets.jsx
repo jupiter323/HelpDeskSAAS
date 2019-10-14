@@ -59,15 +59,18 @@ class Tickets extends Component {
         /* eslint-disable arrow-body-style */
         Cell: row => (
           <div>
-            <NavLink className="btn btn-default btn-xs" to={`/siteadmin/companies/edit/${row.value}`}>
+            {/* <NavLink className="btn btn-default btn-xs" to={`/siteadmin/companies/edit/${row.value}`}> */}
+            <NavLink className="btn btn-default btn-xs" to={`/companyuser/tickets`}>
               <span className="glyphicon glyphicon-pencil" aria-hidden="true" />
               Edit
             </NavLink>
-            <NavLink className="btn btn-default btn-xs m-l-xs" to={`/siteadmin/companies/delete/${row.value}`}>
+            {/* <NavLink className="btn btn-default btn-xs m-l-xs" to={`/siteadmin/companies/delete/${row.value}`}> */}
+            <NavLink className="btn btn-default btn-xs m-l-xs" to={`/siteadmin/companies`}>
               <span className="glyphicon glyphicon-trash" aria-hidden="true" />
               Delete
             </NavLink>
-            <NavLink className="btn btn-default btn-xs m-l-xs" to={`/siteadmin/companies/${row.value}/users`}>
+            {/* <NavLink className="btn btn-default btn-xs m-l-xs" to={`/siteadmin/companies/${row.value}/users`}> */}
+            <NavLink className="btn btn-default btn-xs m-l-xs" to={`/companyuser/tickets`}>
               <span className="glyphicon glyphicon-cog" aria-hidden="true" />
               Assign Users
             </NavLink>
@@ -80,7 +83,7 @@ class Tickets extends Component {
     return (
       <div>
         <div>
-          <NavLink className="btn btn-default btn-xs m-b-sm" to={'/siteadmin/companies/new'}>
+          <NavLink className="btn btn-default btn-xs m-b-sm" to={'/companyuser/tickets/new'}>
             <span className="glyphicon glyphicon-plus" aria-hidden="true" />
             Add new Ticket
           </NavLink>

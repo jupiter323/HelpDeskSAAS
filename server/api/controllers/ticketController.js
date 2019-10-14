@@ -41,11 +41,18 @@ exports.list = function (req, res, next) {
 
 // POST /api/tickets
 // Add new ticket
-exports.new = function (req, res, next) {
+exports.new = function (req, res, next) {  
     if (!req.body.ticket || typeof req.body.ticket !== 'object') {
         return res.status(409).json({ success: false, errors: ['\'ticket\' param is required'] });
     }
-    var ticket = req.body.ticket;
+    var user = req.user;
+    var messages = [req.body.ticket.message]
+    var ticket = {
+        ...req.body.ticket,
+        messages,
+        startBy:user._id,
+        company:user.company        
+    }
     const newTicket = new Ticket(ticket);
     newTicket.save((err) => {
         if (err) {

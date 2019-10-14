@@ -31,8 +31,9 @@ module.exports = function(roles) {
       // Check if user exists
       return User.findById(userId, (err2, user) => {
         if (err2 || !user) return res.status(401).end();
-
+        req.user = user;
         if (roles) {
+          
           if (roles.indexOf(user.role) > -1) return next();
 
           logger.info(`User role: ${user.role} not authorized for ${req.method} ${req.baseUrl}${req.path}`);
