@@ -18,17 +18,17 @@ const TicketService = {
   },
 
   /**
-   * Get Company by id
+   * Get Ticket by id
    *
-   * @param {string}   id company id
+   * @param {string}   id ticket id
    * @param {function} callback (err, data)
                        The function that is called after a service call
                        error {object}: null if no error
                        data {object}: The data set of a succesful call
    */
-  getCompany: (id, callback) => {
+  getTicket: (id, callback) => {
     if (!$.isFunction(callback)) throw new Error('callback function is required');
-    Request.get(`/api/companies/${id}`, callback);
+    Request.get(`/api/tickets/${id}`, callback);
   },
 
   /**
@@ -74,17 +74,17 @@ const TicketService = {
   },
 
   /**
-   * Delete a company
+   * Delete a ticket
    *
-   * @param {string}   id company id
+   * @param {string}   id ticket id
    * @param {function} callback (err, data)
                        The function that is called after a service call
                        error {object}: null if no error
                        data {object}: The data set of a succesful call
    */
-  deleteCompany: (id, callback) => {
+  deleteTicket: (id, callback) => {
     if (!$.isFunction(callback)) throw new Error('callback function is required');
-    Request.delete(`/api/companies/${id}`, callback);
+    Request.delete(`/api/tickets/${id}`, callback);
   }
 };
 

@@ -67,6 +67,9 @@ router.get('/logs', authCheck([Roles.siteAdmin]), logController.list);
 // GET /api/tickets
 router.get('/tickets', authCheck(), ticketController.list);
 
+// GET /api/tickets/:id
+router.get('/tickets/:id', authCheck(), ticketController.find);
+
 // POST /api/tickets
 router.post('/tickets', authCheck(), ticketController.new);
 

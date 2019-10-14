@@ -41,6 +41,26 @@ exports.list = function (req, res, next) {
     });
 };
 
+// GET /api/tickets/:id
+exports.find = function (req, res, next) {
+
+    Ticket.findById(req.params.id, (err, ticket) => {
+      if (err || !ticket) {
+        if (err) logger.error(err);
+        return res.status(404).json({
+          success: false,
+          errors: [err ? err.message : `ticket id '${req.params.id} not found'`]
+        });
+      }
+  
+      return res.json({
+        success: true,
+        data: ticket
+      });
+    });
+  };
+
+
 // POST /api/tickets
 // Add new ticket
 exports.new = function (req, res, next) {

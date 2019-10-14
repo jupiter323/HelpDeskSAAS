@@ -25,10 +25,10 @@ class Tickets extends Component {
     let sort = '';
     state.sorted.forEach((item) => {
       const dir = item.desc ? '-' : '';
-      sort += dir + item.id +' ';
+      sort += dir + item.id + ' ';
     });
 
-    const query = `?page=${state.page+1}&limit=${state.pageSize}&sort=${sort}&filter=${JSON.stringify(state.filtered)}`;
+    const query = `?page=${state.page + 1}&limit=${state.pageSize}&sort=${sort}&filter=${JSON.stringify(state.filtered)}`;
 
     TicketService.getTickets(query, (err, data) => {
       if (err) {
@@ -50,7 +50,7 @@ class Tickets extends Component {
       {
         Header: 'Name',
         accessor: 'name'
-      },  
+      },
       {
         Header: 'Action',
         accessor: 'id',
@@ -64,8 +64,7 @@ class Tickets extends Component {
               <span className="glyphicon glyphicon-pencil" aria-hidden="true" />
               Edit
             </NavLink>
-            {/* <NavLink className="btn btn-default btn-xs m-l-xs" to={`/siteadmin/companies/delete/${row.value}`}> */}
-            <NavLink className="btn btn-default btn-xs m-l-xs" to={`/companyuser/tickets`}>
+            <NavLink className="btn btn-default btn-xs m-l-xs" to={`/companyuser/tickets/delete/${row.value}`}>
               <span className="glyphicon glyphicon-trash" aria-hidden="true" />
               Delete
             </NavLink>
