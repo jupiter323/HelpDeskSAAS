@@ -217,7 +217,6 @@ exports.updateUser = function (req, res, next) {
   delete user.password;
   delete user.createdAt;
   // delete user.updatedAt;
-  console.log(user);
   // Ensure the admin user is authorized to access and update the user data
   // - If SiteAdmin, yes
   // - If Admin, only if admin and user are associated with the same company

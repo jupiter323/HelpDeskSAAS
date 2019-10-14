@@ -17,20 +17,20 @@ router.get('/messages/public1', messageController.getPublicMessage1);
 router.get('/messages/private1', authCheck(), messageController.getPrivateMessage1);
 
 // GET /api/messages/admin1
-router.get('/messages/admin1', authCheck([Roles.admin,Roles.siteAdmin]), messageController.getAdminMessage1);
+router.get('/messages/admin1', authCheck([Roles.admin, Roles.siteAdmin]), messageController.getAdminMessage1);
 
 
 // GET /api/users
-router.get('/users', authCheck([Roles.admin,Roles.siteAdmin]), userController.list);
+router.get('/users', authCheck([Roles.admin, Roles.siteAdmin]), userController.list);
 
 // GET /api/users/:id
-router.get('/users/:id', authCheck([Roles.admin,Roles.siteAdmin]), userController.find);
+router.get('/users/:id', authCheck([Roles.admin, Roles.siteAdmin]), userController.find);
 
 // PUT /api/users
-router.put('/users', authCheck([Roles.admin,Roles.siteAdmin]), userController.updateUser);
+router.put('/users', authCheck([Roles.admin, Roles.siteAdmin]), userController.updateUser);
 
 // PUT /api/users/password
-router.put('/users/password', authCheck([Roles.admin,Roles.siteAdmin]), userController.updatePassword);
+router.put('/users/password', authCheck([Roles.admin, Roles.siteAdmin]), userController.updatePassword);
 
 // PUT /api/users/profile
 router.put('/users/profile', authCheck(), userController.updateProfile);
@@ -39,7 +39,7 @@ router.put('/users/profile', authCheck(), userController.updateProfile);
 router.put('/users/profile/password', authCheck(), userController.updateProfilePassword);
 
 // DELETE /api/users/:id
-router.delete('/users/:id', authCheck([Roles.admin,Roles.siteAdmin]), userController.destroy);
+router.delete('/users/:id', authCheck([Roles.admin, Roles.siteAdmin]), userController.destroy);
 
 
 // GET /api/companies
@@ -65,8 +65,11 @@ router.delete('/companies/:id', authCheck([Roles.siteAdmin]), companyController.
 router.get('/logs', authCheck([Roles.siteAdmin]), logController.list);
 
 // GET /api/tickets
-router.get('/tickets',authCheck(), ticketController.list);
+router.get('/tickets', authCheck(), ticketController.list);
 
 // POST /api/tickets
-router.post('/tickets',authCheck(), ticketController.new);
+router.post('/tickets', authCheck(), ticketController.new);
+
+// DELETE /api/tickets/:id
+router.delete('/tickets/:id', authCheck(), ticketController.destroy)
 module.exports = router;

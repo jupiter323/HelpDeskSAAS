@@ -1,5 +1,6 @@
 const Ticket = require('mongoose').model('Ticket');
 const logger = require('../../main/common/logger');
+const User = require('mongoose').model('User');
 var { sendEmail } = require('../../main/common/utils')
 // GET /api/tickets
 // List tickets, paginations options
@@ -55,17 +56,45 @@ exports.new = function (req, res, next) {
         company: user.company
     }
     const newTicket = new Ticket(ticket);
-    newTicket.save((err) => {
+    newTicket.save((err, ticket) => {
         if (err) {
             logger.error(err);
             return res.json({ success: false, errors: [err.message] });
         }
-        sendEmail("jupiterfierce@gmail.com", '<strong>Created new ticket</strong>')
+        var subject = `ticket number ${ticket._id}`
+
+        //send email part
+        sendEmail(user.email, subject, '<strong>Created new ticket</strong>') //to customer
+        User.find({ company: user.company, role: "Admin" }, (err, admins) => { // to client
+            if (err) {
+                logger.error(err);
+            }
+            sendEmail(admins[0].email, subject, '<strong>Created new ticket</strong>') //to customer            
+        })
+
         return res.json({ success: true });
 
-        
+
     });
 
+};
+
+// DELETE /api/tickets/:id
+exports.destroy = (req, res, next) => {
+    Ticket.findByIdAndRemove(req.params.id, (err, ticket) => {
+        if (err || !ticket) {
+            if (err) logger.error(err);
+            return res.status(404).json({
+                success: false,
+                errors: [err ? err.message : `ticket id '${req.params.id} not found'`]
+            });
+        }
+
+        return res.json({
+            success: true,
+            data: ticket
+        });
+    })
 };
 
 

@@ -2,17 +2,18 @@
 const bcrypt = require('bcryptjs');
 const sgMail = require('@sendgrid/mail');
 
-exports.sendEmail = (toEmail, html) => {
+exports.sendEmail = (toEmail, subject, html) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   const msg = {
-      to: toEmail,
-      from: 'noreply@mernsaas.com',
-      subject: 'From Strava',
-      text: 'Notification!',
-      html: html,
+    to: toEmail,
+    from: 'noreply@mernsaas.com',
+    subject,
+    text: 'Notification!',
+    html: html,
   };
   sgMail.send(msg);
+  console.log(subject + " email sent to " + toEmail)
 }
 /**
  * Hash encrypt a clear string
