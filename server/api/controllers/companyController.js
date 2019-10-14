@@ -7,8 +7,7 @@ const logger = require('../../main/common/logger');
 
 // GET /api/companies
 // List companies, paginations options
-exports.list = function (req, res, next) {
-  console.log("userdata:",req.user)
+exports.list = function (req, res, next) { 
   var limit = parseInt(req.query['limit'], 10);
   const pageOptions = {
     page: req.query['page'] || 1,

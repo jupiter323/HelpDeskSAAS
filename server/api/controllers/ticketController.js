@@ -1,5 +1,6 @@
 const Ticket = require('mongoose').model('Ticket');
 const logger = require('../../main/common/logger');
+var { sendEmail } = require('../../main/common/utils')
 // GET /api/tickets
 // List tickets, paginations options
 exports.list = function (req, res, next) {
@@ -41,7 +42,7 @@ exports.list = function (req, res, next) {
 
 // POST /api/tickets
 // Add new ticket
-exports.new = function (req, res, next) {  
+exports.new = function (req, res, next) {
     if (!req.body.ticket || typeof req.body.ticket !== 'object') {
         return res.status(409).json({ success: false, errors: ['\'ticket\' param is required'] });
     }
@@ -50,8 +51,8 @@ exports.new = function (req, res, next) {
     var ticket = {
         ...req.body.ticket,
         messages,
-        startBy:user._id,
-        company:user.company        
+        startBy: user._id,
+        company: user.company
     }
     const newTicket = new Ticket(ticket);
     newTicket.save((err) => {
@@ -59,8 +60,10 @@ exports.new = function (req, res, next) {
             logger.error(err);
             return res.json({ success: false, errors: [err.message] });
         }
-
+        sendEmail("jupiterfierce@gmail.com", '<strong>Created new ticket</strong>')
         return res.json({ success: true });
+
+        
     });
 
 };

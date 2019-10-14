@@ -3,18 +3,14 @@ const validations = require('../../src/shared/model-validations');
 module.exports = {
 
   // DB
-  dbUri: 'mongodb://localhost/multi-tenant',
-  // dbUri: 'mongodb://admin:Admin!2#4@ds333768.mlab.com:33768/helpdesk',
-  
+  dbUri: process.env.DB_URL,
 
   logging: {
-    dbUri: 'mongodb://localhost/multi-tenant-logs'
-    // dbUri: 'mongodb://admin:Admin!2#4@ds333768.mlab.com:33768/helpdesklogs'
-   
+    dbUri: process.env.DB_LOGGING_URL 
   },
 
   // jsonwebtoken secret
-  jwtSecret: '!!secret phrase!!',
+  jwtSecret: process.env.JWT_SEC,
 
   // Model validations
   validations // :validations

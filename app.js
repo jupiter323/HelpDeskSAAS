@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const path = require('path');
 const port = process.env.PORT || 3000;
@@ -9,6 +10,7 @@ const logger = require('./server/main/common/logger');
 
 // Connect to the database and load models
 require('./server/models').connect(config.dbUri);
+
 
 const compression = require('compression'); // Compression middleware, compress responses from all routes
 const helmet = require('helmet'); // Protect against web vunerablities, http headers, https://www.npmjs.com/package/helmet
@@ -90,3 +92,5 @@ app.use(function(err, req, res, next) {
  */
 http.listen(port);
 logger.info('Server started on port ' + port);
+
+
