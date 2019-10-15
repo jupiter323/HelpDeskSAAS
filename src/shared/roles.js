@@ -6,14 +6,16 @@
  */
 const Roles = {
   siteAdmin: 'SiteAdmin',
-  admin:     'Admin',
-  user:      'User',
+  admin: 'Admin',
+  member: 'Member',
+  user: 'User',
 
   // eslint-disable-next-line object-shorthand
   map: () => {
     return [
       { value: Roles.user },
       { value: Roles.admin },
+      { value: Roles.member },
       { value: Roles.siteAdmin }
     ];
   },
