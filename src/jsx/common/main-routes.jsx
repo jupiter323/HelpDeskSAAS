@@ -9,6 +9,8 @@ import Home from '../pages/home';
 import SignIn from '../pages/signin';
 import SignUp from '../pages/signup';
 import Public1 from '../pages/public1';
+import SearchTickets from '../pages/ticket-search';
+import TicketView from '../pages/ticket-view';
 
 import Profile from '../pages/private/profile';
 import ProfilePassword from '../pages/private/profile-password';
@@ -38,6 +40,8 @@ class MainRoutes extends React.Component {
         {/* eslint-disable arrow-body-style, arrow-parens */}
         <Route exact path="/" render={(props) => (<Home {...props} company={this.props.company} />)} />
         <Route exact path="/public1" component={Public1} />
+        <Route exact path="/ticket/search/" component={SearchTickets} />
+        <Route exact path="/ticket/view/:id" render={(props) => (<TicketView {...props} role={Auth.getRole()} />)} />
         <Route exact path="/signin" render={(props) => (<SignIn {...props} company={this.props.company} />)} />
         <Route exact path="/signup" render={(props) => (<SignUp {...props} company={this.props.company} />)} />
 

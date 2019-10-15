@@ -17,6 +17,23 @@ const TicketService = {
     Request.get(`/api/tickets${query}`, callback);
   },
 
+    /**
+   * Search Tickets
+   *
+   * @param {string}   query query string with paging options
+   * @param {function} callback (err, data)
+                       The function that is called after a service call
+                       error {object}: null if no error
+                       data {object}: The data set of a succesful call
+   */
+  searchTickets: (query, callback) => {
+    if (!$.isFunction(callback)) throw new Error('callback function is required');
+    query = query || '';
+    Request.get(`/api/tickets/search${query}`, callback);
+  },
+
+  
+
   /**
    * Get Ticket by id
    *
@@ -30,6 +47,23 @@ const TicketService = {
     if (!$.isFunction(callback)) throw new Error('callback function is required');
     Request.get(`/api/tickets/${id}`, callback);
   },
+
+
+  
+  /**
+   * Get Ticket by id without auth
+   *
+   * @param {string}   id ticket id
+   * @param {function} callback (err, data)
+                       The function that is called after a service call
+                       error {object}: null if no error
+                       data {object}: The data set of a succesful call
+   */
+  getTicketWithoutAuth: (id, callback) => {
+    if (!$.isFunction(callback)) throw new Error('callback function is required');
+    Request.get(`/api/tickets/search/${id}`, callback);
+  },
+
 
   /**
    * Get Company by id

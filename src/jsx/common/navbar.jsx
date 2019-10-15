@@ -36,8 +36,9 @@ class NavBar extends React.Component {
 
           {/* Collect the nav links, forms, and other content for toggling */}
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul className="nav navbar-nav">
-              <li><NavLink to="/public1" activeClassName="active">Public</NavLink></li>
+            <ul className="nav navbar-nav">              
+              <li><NavLink to="/public1" activeClassName="active">Public</NavLink></li>              
+              <li><NavLink to="/ticket/search/" activeClassName="active">Search all Tickets</NavLink></li>
               {isAuthenticated && <li><NavLink to="/private1" activeClassName="active">Private</NavLink></li>}
 
               {isAuthenticated && (this.props.company.name || user.role === Roles.siteAdmin) && < li > <NavLink to="/companyuser/tickets" activeClassName="active">Tickets</NavLink></li>}

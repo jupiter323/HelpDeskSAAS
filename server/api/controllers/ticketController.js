@@ -42,8 +42,66 @@ exports.list = function (req, res, next) {
     });
 };
 
+// GET /api/tickets/search
+// List tickets, paginations options
+exports.search = function (req, res, next) {
+
+    var limit = parseInt(req.query['limit'], 10);
+    const pageOptions = {
+        page: req.query['page'] || 1,
+        limit: limit || 1000,
+        sort: req.query['sort'] || 'name asc'
+    };
+
+    let filterOptions = {};
+    if (req.query['filter']) {
+        try {
+            const filterParam = JSON.parse(req.query['filter']);
+            if (Array.isArray(filterParam) && filterParam.length > 0) {
+                filterParam.forEach((item) => {
+                    filterOptions[item.id] = new RegExp(item.value, 'i');
+                });
+            }
+        } catch (err) {
+            logger.warn('Could not parse \'filter\' param ' + err);
+        }
+    }
+
+    Ticket.paginate(filterOptions, pageOptions, (err, result) => {
+        if (err) {
+            logger.error(err);
+            return res.status(500).json({
+                success: false,
+                errors: [JSON.stringify(err)]
+            });
+        }
+
+        result.success = true;
+        return res.json(result);
+    });
+};
+
 // GET /api/tickets/:id
 exports.find = function (req, res, next) {
+
+    Ticket.findById(req.params.id, (err, ticket) => {
+        if (err || !ticket) {
+            if (err) logger.error(err);
+            return res.status(404).json({
+                success: false,
+                errors: [err ? err.message : `ticket id '${req.params.id} not found'`]
+            });
+        }
+
+        return res.json({
+            success: true,
+            data: ticket
+        });
+    });
+};
+
+// GET /api/tickets/search/:id
+exports.findNAuth = function (req, res, next) {
 
     Ticket.findById(req.params.id, (err, ticket) => {
         if (err || !ticket) {

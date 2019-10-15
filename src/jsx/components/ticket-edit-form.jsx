@@ -57,10 +57,12 @@ class TicketEditForm extends Component {
         this.setState({
             errors: []
         });
+
         this.validate(field, value);
     }
 
     validate(field, value) {
+        if (this.props.view) return
         const validation = this.state.validation;
         if (validation[field]) validation[field].touched = true;
 
@@ -98,7 +100,7 @@ class TicketEditForm extends Component {
                             <div className="form-group">
                                 <label className="col-sm-3 control-label" htmlFor="name">Name</label>
                                 <div className="col-sm-9">
-                                    <input type="text" className="form-control" readOnly={this.props.reply} id="name" name="name" value={this.props.ticket.name} placeholder="Ticket Name" onChange={this.changeInput} />
+                                    <input type="text" className="form-control" readOnly={this.props.reply || this.props.view} id="name" name="name" value={this.props.ticket.name} placeholder="Ticket Name" onChange={this.changeInput} />
                                 </div>
                             </div>
                             {this.props.ticket.messages.map((message, index) =>
@@ -113,7 +115,8 @@ class TicketEditForm extends Component {
 
                                 </div>
                             )}
-                            <div className="form-group">
+
+                            {!this.props.view && <div className="form-group">
                                 <label className="col-sm-4 control-label" htmlFor="message">Message</label>
 
                                 <div className="col-sm-6">
@@ -124,10 +127,10 @@ class TicketEditForm extends Component {
                                         {cannedMessageOptions}
                                     </select>
                                 </div>
-                            </div>
+                            </div>}
                             <div className="form-group">
                                 <div className="col-sm-offset-3 col-sm-9">
-                                    <button disabled={!validation.formValid} type="submit" className="btn btn-primary">Submit</button>
+                                    {!this.props.view && <button disabled={!validation.formValid} type="submit" className="btn btn-primary">Submit</button>}
                                     <button type="button" className="btn btn-default m-l-sm" onClick={this.cancel}>Cancel</button>
                                 </div>
                             </div>

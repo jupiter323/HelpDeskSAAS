@@ -67,8 +67,14 @@ router.get('/logs', authCheck([Roles.siteAdmin]), logController.list);
 // GET /api/tickets
 router.get('/tickets', authCheck(), ticketController.list);
 
+// GET /api/tickets/search
+router.get('/tickets/search', ticketController.search);
+
 // GET /api/tickets/:id
 router.get('/tickets/:id', authCheck(), ticketController.find);
+
+// GET /api/tickets/:id
+router.get('/tickets/search/:id', ticketController.findNAuth);
 
 // POST /api/tickets
 router.post('/tickets', authCheck(), ticketController.new);
