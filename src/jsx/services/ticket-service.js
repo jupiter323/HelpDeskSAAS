@@ -60,17 +60,17 @@ const TicketService = {
   },
 
   /**
-   * Update a company
+   * Update a ticket
    *
-   * @param {object}   company company object to update
+   * @param {object}   ticket ticket object to update
    * @param {function} callback (err, data)
                        The function that is called after a service call
                        error {object}: null if no error
                        data {object}: The data set of a succesful call
    */
-  updateCompany: (company, callback) => {
+  updateTicket: (ticket, callback) => {
     if (!$.isFunction(callback)) throw new Error('callback function is required');
-    Request.put('/api/companies', JSON.stringify({ company /* :company */ }), callback);
+    Request.put('/api/tickets', JSON.stringify({ ticket /* :ticket */ }), callback);
   },
 
   /**

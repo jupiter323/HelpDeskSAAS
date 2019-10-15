@@ -73,6 +73,9 @@ router.get('/tickets/:id', authCheck(), ticketController.find);
 // POST /api/tickets
 router.post('/tickets', authCheck(), ticketController.new);
 
+// PUT /api/tickets
+router.put('/tickets', authCheck(), ticketController.updateTicket);
+
 // DELETE /api/tickets/:id
 router.delete('/tickets/:id', authCheck(), ticketController.destroy)
 module.exports = router;

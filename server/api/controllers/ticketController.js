@@ -2,6 +2,7 @@ const Ticket = require('mongoose').model('Ticket');
 const logger = require('../../main/common/logger');
 const User = require('mongoose').model('User');
 var { sendEmail } = require('../../main/common/utils')
+const { ErrorTypes } = require('../../main/common/errors');
 // GET /api/tickets
 // List tickets, paginations options
 exports.list = function (req, res, next) {
@@ -45,20 +46,20 @@ exports.list = function (req, res, next) {
 exports.find = function (req, res, next) {
 
     Ticket.findById(req.params.id, (err, ticket) => {
-      if (err || !ticket) {
-        if (err) logger.error(err);
-        return res.status(404).json({
-          success: false,
-          errors: [err ? err.message : `ticket id '${req.params.id} not found'`]
+        if (err || !ticket) {
+            if (err) logger.error(err);
+            return res.status(404).json({
+                success: false,
+                errors: [err ? err.message : `ticket id '${req.params.id} not found'`]
+            });
+        }
+
+        return res.json({
+            success: true,
+            data: ticket
         });
-      }
-  
-      return res.json({
-        success: true,
-        data: ticket
-      });
     });
-  };
+};
 
 
 // POST /api/tickets
@@ -67,35 +68,45 @@ exports.new = function (req, res, next) {
     if (!req.body.ticket || typeof req.body.ticket !== 'object') {
         return res.status(409).json({ success: false, errors: ['\'ticket\' param is required'] });
     }
-    var user = req.user;
-    var messages = [req.body.ticket.message]
-    var ticket = {
-        ...req.body.ticket,
-        messages,
-        startBy: user._id,
-        company: user.company
-    }
-    const newTicket = new Ticket(ticket);
-    newTicket.save((err, ticket) => {
-        if (err) {
-            logger.error(err);
-            return res.json({ success: false, errors: [err.message] });
-        }
-        var subject = `ticket number ${ticket._id}`
 
-        //send email part
-        sendEmail(user.email, subject, '<strong>Created new ticket</strong>') //to customer
-        User.find({ company: user.company, role: "Admin" }, (err, admins) => { // to client
+    validateTicket(req.body.ticket, (errValidation, ticket) => {
+        if (errValidation) {
+            logger.error(err);
+            return res.json({ success: false, errors: [errValidation.message] });
+        }
+
+        var user = req.user;
+        var messages = [req.body.ticket.newMessage]
+        var ticket = {
+            ...req.body.ticket,
+            messages,
+            startBy: user._id,
+            company: user.company
+        }
+        const newTicket = new Ticket(ticket);
+        newTicket.save((err, ticket) => {
             if (err) {
                 logger.error(err);
+                return res.json({ success: false, errors: [err.message] });
             }
-            sendEmail(admins[0].email, subject, '<strong>Created new ticket</strong>') //to customer            
-        })
+            var subject = `ticket number ${ticket._id}`
 
-        return res.json({ success: true });
+            //send email part
+            sendEmail(user.email, subject, '<strong>Created new ticket</strong>') //to customer
+            User.find({ company: user.company, role: "Admin" }, (err, admins) => { // to client
+                if (err) {
+                    logger.error(err);
+                }
+                sendEmail(admins[0].email, subject, '<strong>Created new ticket</strong>') //to customer            
+            })
+
+            return res.json({ success: true });
 
 
+        });
     });
+
+
 
 };
 
@@ -116,5 +127,65 @@ exports.destroy = (req, res, next) => {
         });
     })
 };
+
+// PUT /api/tickets
+exports.updateTicket = function (req, res, next) {
+    if (!req.body.ticket || typeof req.body.ticket !== 'object') {
+        return res.status(409).json({ success: false, errors: ['\'ticket\' param is required'] });
+    }
+
+    const ticket = req.body.ticket;
+
+    updateTicket(ticket, (err, data) => {
+        if (err) {
+            if (err.name && err.name === ErrorTypes.ModelValidation) logger.info(err.toString());
+            else logger.error(err);
+
+            return res.status(400).json({ success: false, errors: [err.message] });
+        }
+
+        return res.json({ success: true });
+    });
+};
+
+
+function updateTicket(ticket, callback) {
+
+
+    validateTicket(ticket, (errValdation, c) => {
+        if (errValdation) return callback(errValdation);
+        c.messages.push(c.newMessage)
+        Ticket.findOneAndUpdate({ _id: c.id }, c, (err, data) => {
+            if (err) return callback(err);
+
+            return callback(null, data);
+        });
+    });
+}
+
+
+function validateTicket(ticket, callback) {
+
+    if (typeof ticket.name === 'string') {
+        ticket.name = ticket.name.trim();
+        if (ticket.name.length === 0)
+            return callback(new Error('ticket.name length is 0'));
+    } else {
+        return callback(new Error('ticket.name is required'));
+    }
+
+    if (typeof ticket.newMessage === 'string') {
+        ticket.newMessage = ticket.newMessage.trim();
+        if (ticket.newMessage.length === 0)
+            return callback(new Error('ticket.newMessage length is 0'));
+    } else {
+        return callback(new Error('ticket.newMessage is required'));
+    }
+
+    return callback(null, ticket);
+}
+
+
+
 
 

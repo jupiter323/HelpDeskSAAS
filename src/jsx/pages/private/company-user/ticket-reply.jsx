@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import CompanyService from '../../../services/company-service';
-import CompanyEditForm from '../../../components/company-edit-form';
+import TicketService from '../../../services/ticket-service';
+import TicketEditForm from '../../../components/ticket-edit-form';
 
-class CompanyEdit extends Component {
+class TicketReply extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       id: props.match.params.id,
       errors: [],
-      company: { name: '', subdomain: '' },
+      ticket: { name: '', messages: [], newMessage: "" },
       isFetching: true
     };
 
@@ -19,9 +19,10 @@ class CompanyEdit extends Component {
   }
 
   componentWillMount() {
-    CompanyService.getCompany(this.state.id, (err, data) => {
+    TicketService.getTicket(this.state.id, (err, data) => {
       if (data && data.success) {
-        this.setState({ company: data.data, isFetching: false });
+        this.setState({ ticket: { name: data.data.name, messages: data.data.messages, id: data.data.id, newMessage: "" }, isFetching: false });
+
       } else if (err) {
         this.setState({ errors: [err.message] });
       }
@@ -31,11 +32,11 @@ class CompanyEdit extends Component {
   submit(evt) {
     evt.preventDefault();
 
-    CompanyService.updateCompany(this.state.company, (err, data) => {
+    TicketService.updateTicket(this.state.ticket, (err, data) => {
       if (err || (data && !data.success)) {
         this.setState({ errors: data && data.errors ? data.errors : [err.message] });
       } else if (data && data.success) {
-        this.props.history.push('/siteadmin/companies');
+        this.props.history.push('/companyuser/tickets');
       }
     });
   }
@@ -45,12 +46,13 @@ class CompanyEdit extends Component {
       <div>
         <div className="row">
           <div className="col-sm-5 col-md-5 col-lg-5 form-header">
-            <h4>Edit Company</h4>
+            <h4>Reply Ticket</h4>
           </div>
         </div>
         <div className="row">
-          <CompanyEditForm
-            company={this.state.company}
+          <TicketEditForm
+            reply
+            ticket={this.state.ticket}
             submit={this.submit}
             errors={this.state.errors}
             history={this.props.history}
@@ -60,7 +62,7 @@ class CompanyEdit extends Component {
     );
   }
 }
-CompanyEdit.propTypes = {
+TicketReply.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
@@ -71,4 +73,4 @@ CompanyEdit.propTypes = {
   }).isRequired
 };
 
-export default CompanyEdit;
+export default TicketReply;

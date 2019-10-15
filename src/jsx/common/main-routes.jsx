@@ -29,7 +29,7 @@ import Logs from '../pages/private/site-admin/logs';
 
 import Tickets from '../pages/private/company-user/tickets';
 import TicketNew from '../pages/private/company-user/ticket-new';
-import TicketEdit from '../pages/private/company-user/ticket-edit';
+import TicketReply from '../pages/private/company-user/ticket-reply';
 import TicketDelete from '../pages/private/company-user/ticket-delete';
 class MainRoutes extends React.Component {
   render() {
@@ -65,7 +65,7 @@ class MainRoutes extends React.Component {
 
             <Route exact path="/companyuser/tickets" render={(props) => (<Tickets {...props} role={Auth.getRole()} />)} />
             <Route exact path="/companyuser/tickets/new" render={(props) => (<TicketNew {...props} role={Auth.getRole()} />)} />
-            <Route exact path="/companyuser/tickets/edit/:id" render={(props) => (<TicketEdit {...props} role={Auth.getRole()} />)} />
+            <Route exact path="/companyuser/tickets/reply/:id" render={(props) => (<TicketReply {...props} role={Auth.getRole()} />)} />
             <Route exact path="/companyuser/tickets/delete/:id" render={(props) => (<TicketDelete {...props} role={Auth.getRole()} />)} />
 
           </Switch>

@@ -57,12 +57,14 @@ class TicketDelete extends Component {
           <div className="col-sm-4 col-md-4 col-lg-4">
             <div className="row">
               <strong className="col-xs-6 col-sm-8 col-md-6 col-lg-4">Ticket Name</strong>
-              <div className="col-xs-4 col-sm-4 col-md-4">{ticket.name}</div>
+              <div className="col-xs-4 col-sm-4 col-md-6">{ticket.name}</div>
             </div>
-            <div className="row m-t-xs">
-              <strong className="col-xs-6 col-sm-8 col-md-6 col-lg-4">Message</strong>
-              <div className="col-xs-4 col-sm-4 col-md-4">{ticket.messages[0]}</div>
-            </div>
+            {ticket.messages.map((message, index) =>
+              <div key={index} className="row m-t-xs">
+                <strong className="col-xs-6 col-sm-8 col-md-6 col-lg-4">Message {index}</strong>
+                <div className="col-xs-4 col-sm-4 col-md-6">{message}</div>
+              </div>
+            )}
             <div className="row m-t-md">
               <div className="col-xs-12 col-sm-12 col-md-12">
                 <strong>Are you sure you want to delete ticket?</strong><br />

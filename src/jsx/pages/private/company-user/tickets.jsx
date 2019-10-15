@@ -59,10 +59,9 @@ class Tickets extends Component {
         /* eslint-disable arrow-body-style */
         Cell: row => (
           <div>
-            {/* <NavLink className="btn btn-default btn-xs" to={`/siteadmin/companies/edit/${row.value}`}> */}
-            <NavLink className="btn btn-default btn-xs" to={`/companyuser/tickets`}>
+            <NavLink className="btn btn-default btn-xs" to={`/companyuser/tickets/reply/${row.value}`}>
               <span className="glyphicon glyphicon-pencil" aria-hidden="true" />
-              Edit
+              Reply
             </NavLink>
             <NavLink className="btn btn-default btn-xs m-l-xs" to={`/companyuser/tickets/delete/${row.value}`}>
               <span className="glyphicon glyphicon-trash" aria-hidden="true" />
