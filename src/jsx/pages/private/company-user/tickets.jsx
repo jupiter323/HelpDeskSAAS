@@ -67,8 +67,7 @@ class Tickets extends Component {
               <span className="glyphicon glyphicon-trash" aria-hidden="true" />
               Delete
             </NavLink>
-            {/* <NavLink className="btn btn-default btn-xs m-l-xs" to={`/siteadmin/companies/${row.value}/users`}> */}
-            <NavLink className="btn btn-default btn-xs m-l-xs" to={`/companyuser/tickets`}>
+            <NavLink className="btn btn-default btn-xs m-l-xs" to={`/companyuser/tickets/${row.value}/users`}>
               <span className="glyphicon glyphicon-cog" aria-hidden="true" />
               Assign Users
             </NavLink>

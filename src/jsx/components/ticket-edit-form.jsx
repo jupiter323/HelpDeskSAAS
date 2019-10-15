@@ -22,7 +22,11 @@ class TicketEditForm extends Component {
                     message: 'New Message is required'
                 },
                 formValid: false
-            }
+            },
+            cannedMessageOptions: [
+                <option key="12" value="This is the first canned message">first item</option>,
+                <option key="13" value="This is the second canned message">second item</option>
+            ]
         };
 
         this.componentDidUpdate = this.componentDidUpdate.bind(this);
@@ -85,6 +89,7 @@ class TicketEditForm extends Component {
 
     render() {
         const validation = this.state.validation;
+        var { cannedMessageOptions } = this.state
         return (
             <div>
                 <div className="col-sm-4 col-md-4 col-lg-4">
@@ -111,8 +116,13 @@ class TicketEditForm extends Component {
                             <div className="form-group">
                                 <label className="col-sm-4 control-label" htmlFor="message">Message</label>
 
-                                <div className="col-sm-8">
+                                <div className="col-sm-6">
                                     <input type="text" className="form-control" id="newMessage" name="newMessage" value={this.props.ticket.newMessage} placeholder="New Message" onChange={this.changeInput} />
+                                </div>
+                                <div className="col-sm-1">
+                                    <select className="form-control" id="newMessage" name="newMessage" value={this.props.ticket.newMessage} onChange={this.changeInput}>
+                                        {cannedMessageOptions}
+                                    </select>
                                 </div>
                             </div>
                             <div className="form-group">
