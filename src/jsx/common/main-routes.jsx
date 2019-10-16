@@ -51,7 +51,7 @@ class MainRoutes extends React.Component {
             <Route exact path="/profile" render={(props) => (<Profile {...props} user={Auth.getUser()} />)} />
             <Route exact path="/private1" component={Private1} />
 
-            <Route exact path="/admin1" userRoles="Admin,SiteAdmin" component={Admin1} />
+            <Route exact path="/admin1" userRoles="Admin,SiteAdmin" render={(props) => (<Admin1 {...props} company={this.props.company} />)} />
 
             <Route exact path="/admin/users" userRoles="Admin,SiteAdmin" render={(props) => (<Users {...props} role={Auth.getRole()} />)} />
             <Route exact path="/admin/users/edit/:id" userRoles="Admin,SiteAdmin" render={(props) => (<UserEdit {...props} role={Auth.getRole()} />)} />
@@ -69,7 +69,7 @@ class MainRoutes extends React.Component {
 
             <Route exact path="/companyuser/tickets" render={(props) => (<Tickets {...props} role={Auth.getRole()} />)} />
             <Route exact path="/companyuser/tickets/new" render={(props) => (<TicketNew {...props} role={Auth.getRole()} />)} />
-            <Route exact path="/companyuser/tickets/reply/:id" render={(props) => (<TicketReply {...props} role={Auth.getRole()} />)} />
+            <Route exact path="/companyuser/tickets/reply/:id" render={(props) => (<TicketReply {...props} role={Auth.getRole()} company={this.props.company} />)} />
             <Route exact path="/companyuser/tickets/delete/:id" render={(props) => (<TicketDelete {...props} role={Auth.getRole()} />)} />
 
           </Switch>

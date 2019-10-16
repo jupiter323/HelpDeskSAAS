@@ -14,7 +14,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      company: { name: null, subdomain: null }
+      company: { name: null, subdomain: null, logo: null }
     };
   }
 

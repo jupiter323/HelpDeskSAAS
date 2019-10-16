@@ -7,7 +7,7 @@ const logger = require('../../main/common/logger');
 
 // GET /api/companies
 // List companies, paginations options
-exports.list = function (req, res, next) { 
+exports.list = function (req, res, next) {
   var limit = parseInt(req.query['limit'], 10);
   const pageOptions = {
     page: req.query['page'] || 1,
@@ -155,6 +155,16 @@ exports.destroy = function (req, res, next) {
   });
 };
 
+exports.uploadlogo = (req, res) => {
+  if (!req.file) {
+    return res.status(400).send('No file received.');
+  }
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  const host = req.hostname;
+  const port = process.env.PORT || 3000
+  const filePath = req.protocol + "://" + host + ":" + port + req.file.path.replace("public", "");
+  res.json({ success: true, data: filePath });
+}
 
 function updateCompany(company, callback) {
 

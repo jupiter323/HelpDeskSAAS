@@ -31,17 +31,21 @@ class TicketReply extends Component {
 
   submit(evt) {
     evt.preventDefault();
-
     TicketService.updateTicket(this.state.ticket, (err, data) => {
       if (err || (data && !data.success)) {
         this.setState({ errors: data && data.errors ? data.errors : [err.message] });
       } else if (data && data.success) {
-        this.props.history.push('/companyuser/tickets');
+        var ticket = this.state.ticket
+        ticket.messages.push(ticket.newMessage)
+        ticket.newMessage = ""
+        this.setState({ ticket })
+        // this.props.history.push(`/companyuser/tickets/reply/${this.state.id}`);
       }
     });
   }
 
   render() {
+    var embedCode = `<script type="text/javascript" src="/js/main.js"></script><iframe src="http://${this.props.company.subdomain}.mernsaas.com:3000/companyuser/tickets/reply/${this.state.id}"></iframe>`
     return (
       <div>
         <div className="row">
@@ -49,6 +53,7 @@ class TicketReply extends Component {
             <h4>Reply Ticket</h4>
           </div>
         </div>
+
         <div className="row">
           <TicketEditForm
             reply
@@ -57,6 +62,18 @@ class TicketReply extends Component {
             errors={this.state.errors}
             history={this.props.history}
             isFetching={this.state.isFetching} />
+        </div>
+
+        <div className="row">
+          <div className="col-sm-12 col-12">
+            <label className="control-label" htmlFor="name">Embed Code</label>
+          </div>
+          <div className="col-sm-12 col-md-9 col-lg-9">
+            <pre>
+              {embedCode}
+            </pre>
+
+          </div>
         </div>
       </div>
     );

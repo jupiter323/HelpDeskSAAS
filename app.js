@@ -17,7 +17,7 @@ const helmet = require('helmet'); // Protect against web vunerablities, http hea
 
 const app = express();
 const http = require('http').createServer(app);
-
+app.use(express.static("public"));
 app.use(compression());
 app.use(helmet());
 

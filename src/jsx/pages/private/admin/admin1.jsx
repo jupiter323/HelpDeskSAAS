@@ -3,33 +3,98 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import MessageService from '../../../services/message-service';
 
+import CompanyService from '../../../services/company-service';
+
+import PictureUpload from "../../../components/picture-upload.jsx";
+var currentCSS = require("../../../../client-branding/company123/site-branding.scss")
 class Admin1 extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      logourl: "",
+      company: {},
       message: '',
-      error: ''
+      error: '',
+      currentCSS,
+      editCSS: JSON.stringify(currentCSS)
     };
 
     this.componentWillMount = this.componentWillMount.bind(this);
+    this.handleImageUrl = this.handleImageUrl.bind(this);
+    this.handleCSS = this.handleCSS.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillMount() {
-    MessageService.getAdminMessage1((err, data) => {
+    var { company } = this.props
+    CompanyService.getCompanyBySubdomain(company.subdomain, (err, data) => {
+      if (err) {
+        this.setState({ message: '', error: err })
+      } else
+        this.setState({
+          currentCSS: data.data.css,
+          editCSS: data.data.css,
+          company:
+            { id: data.data.id, name: data.data.name, subdomain: data.data.subdomain, css: data.data.css, logo: data.data.logo }
+        })
+    })
+  }
+  handleImageUrl(file) {
+    // upload endpoint
+    var { company } = this.state
+    const data = new FormData()
+    data.append('file', file, file.fileName);
+    CompanyService.uploadLogo(data, (err, data) => {
       if (err) {
         this.setState({ message: '', error: err });
       } else {
-        this.setState({ message: data.message, error: '' });
+        company.log = data.data
+        this.setState({ message: "success upload!", error: '', logourl: data.data });
       }
-    });
+
+    })
+
+  }
+
+  isCSS(cssString) {
+    try {
+      JSON.parse(cssString)
+      return true
+    } catch (err) {
+      return false
+    }
+
+  }
+  handleCSS(e) {
+
+    this.setState({ editCSS: e.target.value })
+  }
+  handleSubmit() {
+    var { editCSS, company, logourl } = this.state
+    if (this.isCSS(editCSS))
+      this.setState({ currentCSS: JSON.parse(editCSS) })
+    else return this.setState({ error: "please correct input your css" })
+    if (!logourl)
+      return this.setState({ error: "please upload your new logo" })
+    company.css = editCSS
+    company.logo = logourl
+    this.setState(company)
+
+    CompanyService.updateCompanyCustom(company, (err, data) => {
+      if (err)
+        this.setState({ message: "", error: err })
+      else if (data && data.success)
+        this.setState({ message: "Changed your style and logo" })
+    })
   }
 
   render() {
+    var { editCSS, company } = this.state
     const divs = [];
     if (this.state.message || this.state.error) {
       divs.push(
-        <div key="alert-div" className={'alert alert-'+ (this.state.message ? 'success' : 'warning')}>
+        <div key="alert-div" className={'alert alert-' + (this.state.message ? 'success' : 'warning')}>
           {this.state.message}
           {this.state.error}
         </div>
@@ -41,44 +106,26 @@ class Admin1 extends Component {
         <div className="row">
           <div className="col-sm-12 col-md-10 col-lg-6">
             <h3>Admin Page 1</h3>
+
             <ReactCSSTransitionGroup
               transitionName="transition"
               transitionEnterTimeout={700}
               transitionLeaveTimeout={700}>
               {divs}
+
             </ReactCSSTransitionGroup>
           </div>
         </div>
         <div className="row">
           <div className="col-sm-12 col-md-10 col-lg-6">
-            <ul className="well">
-              <li>React route</li>
-              {/* eslint-disable react/no-unescaped-entities */}
-              <ul>
-                <li>/admin1</li>
-                <li>Requires auth token. User roles of 'Admin' or 'SiteAdmin'</li>
-                <li>See src/jsx/common/main-routes.jsx</li>
-              </ul>
-              <li>Api route</li>
-              <ul>
-                <li>/api/messages/admin1</li>
-                <li>Requires auth token. User roles of 'Admin' or 'SiteAdmin'</li>
-                <li>
-                  See server/routes/api.js
-                  {/* eslint-disable max-len */}
-                  {/* eslint-disable react/no-unescaped-entities, react/jsx-no-comment-textnodes */}
-                  <pre>
-                    const authCheck = require('../middleware/auth-check'); <br /><br />
-
-                    // GET /api/messages/admin1 <br />
-                    router.get('/messages/admin1', authCheck([Roles.admin,Roles.siteAdmin]), messageController.getAdminMessage1);
-                  </pre>
-                  {/* eslint-enable react/no-unescaped-entities, react/jsx-no-comment-textnodes, max-len */}
-                </li>
-              </ul>
-              {/* eslint-enable react/no-unescaped-entities */}
-            </ul>
+            <div className="well">
+              <PictureUpload receiveUrl={this.handleImageUrl} image={company.logo} />
+              <textarea value={editCSS} onChange={this.handleCSS} />
+            </div>
           </div>
+        </div>
+        <div className="row">
+          <button onClick={this.handleSubmit}>Submit</button>
         </div>
       </div>
     );

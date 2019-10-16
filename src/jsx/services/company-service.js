@@ -73,6 +73,24 @@ const CompanyService = {
     Request.put('/api/companies', JSON.stringify({ company /* :company */ }), callback);
   },
 
+  
+  /**
+   * Update a updateCompany for Customize
+   *
+   * @param {object}   company company object to update
+   * @param {function} callback (err, data)
+                       The function that is called after a service call
+                       error {object}: null if no error
+                       data {object}: The data set of a succesful call
+   */
+  updateCompanyCustom: (company, callback) => {
+    if (!$.isFunction(callback)) throw new Error('callback function is required');
+    Request.put('/api/companies/customize', JSON.stringify({ company /* :company */ }), callback);
+  },
+
+
+  
+
   /**
    * Delete a company
    *
@@ -85,7 +103,14 @@ const CompanyService = {
   deleteCompany: (id, callback) => {
     if (!$.isFunction(callback)) throw new Error('callback function is required');
     Request.delete(`/api/companies/${id}`, callback);
+  },
+
+  uploadLogo: (formdata, callback) => {
+    if (!$.isFunction(callback)) throw new Error('callback function is required');
+    Request.post(`/api/companies/uploadlogo`, formdata, callback, 'multipart/form-data');
   }
+
+
 };
 
 export default CompanyService;

@@ -2,7 +2,6 @@ import Auth from '../modules/auth';
 
 const Request =
   (function () {
-
     function setHeader(xhr) {
       xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
     }
@@ -88,12 +87,13 @@ const Request =
                            error {object}: null if no error
                            data {object}: The data set of a succesful call
        */
-      post: (url, data, callback) => {
+      post: (url, data, callback, optional) => {
         $.ajax({
           url, // :url
           type: 'POST',
           data, // :data
-          contentType: 'application/json; charset=utf-8',
+          contentType: optional?false:`application/json; charset=utf-8`,
+          processData: false,
           dataType: 'json',
           beforeSend: setHeader
         }).done((result) => {

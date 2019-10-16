@@ -21,7 +21,7 @@ class CompanyEdit extends Component {
   componentWillMount() {
     CompanyService.getCompany(this.state.id, (err, data) => {
       if (data && data.success) {
-        this.setState({ company: data.data, isFetching: false });
+        this.setState({ company: { id: data.data.id, name: data.data.name, subdomain: data.data.subdomain }, isFetching: false });
       } else if (err) {
         this.setState({ errors: [err.message] });
       }
@@ -30,7 +30,6 @@ class CompanyEdit extends Component {
 
   submit(evt) {
     evt.preventDefault();
-
     CompanyService.updateCompany(this.state.company, (err, data) => {
       if (err || (data && !data.success)) {
         this.setState({ errors: data && data.errors ? data.errors : [err.message] });

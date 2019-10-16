@@ -8,7 +8,16 @@ const userController = require('../api/controllers/userController');
 const companyController = require('../api/controllers/companyController');
 const ticketController = require('../api/controllers/ticketController');
 const logController = require('../api/controllers/logController');
-
+const multer = require('multer')
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + '.png')
+    }
+});
+const upload = multer({ storage: storage })
 
 // GET /api/messages/public1
 router.get('/messages/public1', messageController.getPublicMessage1);
@@ -57,9 +66,15 @@ router.post('/companies', authCheck([Roles.siteAdmin]), companyController.new);
 // PUT /api/companies
 router.put('/companies', authCheck([Roles.siteAdmin]), companyController.updateCompany);
 
+// PUT /api/companies/customize
+router.put('/companies/customize', authCheck([Roles.siteAdmin,Roles.admin]), companyController.updateCompany);
+
+
 // DELETE /api/companies/:id
 router.delete('/companies/:id', authCheck([Roles.siteAdmin]), companyController.destroy);
 
+// POST /api/companies/uploadlogo
+router.post('/companies/uploadlogo', authCheck([Roles.siteAdmin,Roles.admin]), upload.single('file'), companyController.uploadlogo);
 
 // GET /api/companies
 router.get('/logs', authCheck([Roles.siteAdmin]), logController.list);

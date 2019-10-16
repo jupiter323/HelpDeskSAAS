@@ -13,6 +13,16 @@ const CompanySchema = new mongoose.Schema({
     type: String,
     required: true,
     index: { unique: true }
+  },
+  logo: {
+    type: String,
+    required: false,
+    index: { unique: true }
+  },
+  css: {
+    type: String,
+    required: false,
+    index: { unique: true }
   }
 }, {
   toObject: { virtuals: true },
@@ -25,7 +35,7 @@ CompanySchema.plugin(timestamps);
 /**
  * Override default toJSON, remove password field and __v version
  */
-CompanySchema.methods.toJSON = function() {
+CompanySchema.methods.toJSON = function () {
   var obj = this.toObject();
   delete obj.__v;
   obj.id = obj._id;
