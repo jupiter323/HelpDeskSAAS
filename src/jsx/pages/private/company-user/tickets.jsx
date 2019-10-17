@@ -29,7 +29,7 @@ class Tickets extends Component {
     });
 
     const query = `?page=${state.page + 1}&limit=${state.pageSize}&sort=${sort}&filter=${JSON.stringify(state.filtered)}`;
-    
+
     TicketService.getTickets(query, (err, data) => {
       if (err) {
         this.setState({ errors: [err.message] });
@@ -70,7 +70,7 @@ class Tickets extends Component {
             <select className="btn btn-default btn-xs m-l-xs">
               <option key="1" value="user1">Assigned user1</option>
               <option key="2" value="user1">Assigned user2</option>
-            </select>           
+            </select>
           </div>
         )
         /* eslint-enable arrow-body-style */

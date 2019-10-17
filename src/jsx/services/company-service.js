@@ -73,7 +73,7 @@ const CompanyService = {
     Request.put('/api/companies', JSON.stringify({ company /* :company */ }), callback);
   },
 
-  
+
   /**
    * Update a updateCompany for Customize
    *
@@ -88,8 +88,6 @@ const CompanyService = {
     Request.put('/api/companies/customize', JSON.stringify({ company /* :company */ }), callback);
   },
 
-
-  
 
   /**
    * Delete a company
@@ -107,7 +105,7 @@ const CompanyService = {
 
   uploadLogo: (formdata, callback) => {
     if (!$.isFunction(callback)) throw new Error('callback function is required');
-    Request.post(`/api/companies/uploadlogo`, formdata, callback, 'multipart/form-data');
+    Request.post('/api/companies/uploadlogo', formdata, callback, 'multipart/form-data');
   }
 
 

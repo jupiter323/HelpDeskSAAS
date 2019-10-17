@@ -32,7 +32,7 @@ module.exports = Merge(CommonConfig, {
             {
               loader: 'postcss-loader',
               options: {
-                plugins: () => [require('autoprefixer')]
+                plugins: () => { return [require('autoprefixer')]; }
               }
             },
             {

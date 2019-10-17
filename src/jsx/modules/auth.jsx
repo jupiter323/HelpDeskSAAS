@@ -101,7 +101,7 @@ const Auth = {
         CompanyService.getCompanyBySubdomain(subdomain, (err, result) => {
           if (err) { return callback(err); }
 
-          const company = { name: result.data.name, subdomain: result.data.subdomain,logo:result.data.logo };
+          const company = { name: result.data.name, subdomain: result.data.subdomain, logo: result.data.logo };
           localStorage.setItem('ctoken', btoa(JSON.stringify(company)));
           return callback(null, company);
         });

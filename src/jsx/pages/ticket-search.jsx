@@ -60,7 +60,7 @@ class SearchTickets extends Component {
             <NavLink className="btn btn-default btn-xs" to={`/ticket/view/${row.value}`}>
               <span className="glyphicon glyphicon-pencil" aria-hidden="true" />
               View
-            </NavLink>        
+            </NavLink>
           </div>
         )
         /* eslint-enable arrow-body-style */
@@ -68,7 +68,7 @@ class SearchTickets extends Component {
     ];
 
     return (
-      <div>      
+      <div>
         <ReactTable
           columns={columns}
           defaultSorted={[{ id: 'name', desc: false }]}

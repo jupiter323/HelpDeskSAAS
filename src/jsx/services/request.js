@@ -92,7 +92,7 @@ const Request =
           url, // :url
           type: 'POST',
           data, // :data
-          contentType: optional?false:`application/json; charset=utf-8`,
+          contentType: optional?false:'application/json; charset=utf-8',
           processData: false,
           dataType: 'json',
           beforeSend: setHeader

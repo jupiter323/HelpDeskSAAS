@@ -11,7 +11,7 @@ class TicketView extends Component {
     this.state = {
       id: props.match.params.id,
       errors: [],
-      ticket: { name: '', messages: [], newMessage: "" },
+      ticket: { name: '', messages: [], newMessage: '' },
       isFetching: true
     };
 
@@ -21,7 +21,7 @@ class TicketView extends Component {
   componentWillMount() {
     TicketService.getTicketWithoutAuth(this.state.id, (err, data) => {
       if (data && data.success) {
-        this.setState({ ticket: { name: data.data.name, messages: data.data.messages, id: data.data.id, newMessage: "" }, isFetching: false });
+        this.setState({ ticket: { name: data.data.name, messages: data.data.messages, id: data.data.id, newMessage: '' }, isFetching: false });
 
       } else if (err) {
         this.setState({ errors: [err.message] });

@@ -11,7 +11,7 @@ class TicketReply extends Component {
     this.state = {
       id: props.match.params.id,
       errors: [],
-      ticket: { name: '', messages: [], newMessage: "" },
+      ticket: { name: '', messages: [], newMessage: '' },
       isFetching: true
     };
 
@@ -21,7 +21,7 @@ class TicketReply extends Component {
   componentWillMount() {
     TicketService.getTicket(this.state.id, (err, data) => {
       if (data && data.success) {
-        this.setState({ ticket: { name: data.data.name, messages: data.data.messages, id: data.data.id, newMessage: "" }, isFetching: false });
+        this.setState({ ticket: { name: data.data.name, messages: data.data.messages, id: data.data.id, newMessage: '' }, isFetching: false });
 
       } else if (err) {
         this.setState({ errors: [err.message] });
@@ -35,17 +35,17 @@ class TicketReply extends Component {
       if (err || (data && !data.success)) {
         this.setState({ errors: data && data.errors ? data.errors : [err.message] });
       } else if (data && data.success) {
-        var ticket = this.state.ticket
-        ticket.messages.push(ticket.newMessage)
-        ticket.newMessage = ""
-        this.setState({ ticket })
+        const ticket = this.state.ticket;
+        ticket.messages.push(ticket.newMessage);
+        ticket.newMessage = '';
+        this.setState({ ticket });
         // this.props.history.push(`/companyuser/tickets/reply/${this.state.id}`);
       }
     });
   }
 
   render() {
-    var embedCode = `<script type="text/javascript" src="/js/main.js"></script><iframe src="http://${this.props.company.subdomain}.mernsaas.com:3000/companyuser/tickets/reply/${this.state.id}"></iframe>`
+    const embedCode = `<script type="text/javascript" src="/js/main.js"></script><iframe src="http://${this.props.company.subdomain}.mernsaas.com:3000/companyuser/tickets/reply/${this.state.id}"></iframe>`;
     return (
       <div>
         <div className="row">

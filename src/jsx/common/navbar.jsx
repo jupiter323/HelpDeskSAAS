@@ -12,7 +12,7 @@ class NavBar extends React.Component {
   }
 
   render() {
-    const { company, user, isAuthenticated } = this.props
+    const { company, user, isAuthenticated } = this.props;
     return (
       <nav className="navbar navbar-default">
         <div className="container-fluid">
@@ -28,8 +28,8 @@ class NavBar extends React.Component {
               {company.name ? (
                 company.name
               ) : (
-                  <div>Help Desk React Node.js</div>
-                )}
+                <div>Help Desk React Node.js</div>
+              )}
             </NavLink>
           </div>
 
@@ -40,7 +40,7 @@ class NavBar extends React.Component {
               <li><NavLink to="/ticket/search/" activeClassName="active">Search all Tickets</NavLink></li>
               {isAuthenticated && <li><NavLink to="/private1" activeClassName="active">Private</NavLink></li>}
 
-              {isAuthenticated && (this.props.company.name || user.role === Roles.siteAdmin) && < li > <NavLink to="/companyuser/tickets" activeClassName="active">Tickets</NavLink></li>}
+              {isAuthenticated && (this.props.company.name || user.role === Roles.siteAdmin) && <li > <NavLink to="/companyuser/tickets" activeClassName="active">Tickets</NavLink></li>}
               {isAuthenticated && user.role === Roles.admin &&
                 <li className="dropdown">
                   <a className="dropdown-toggle" href="#" data-toggle="dropdown">
@@ -100,10 +100,10 @@ class NavBar extends React.Component {
                 </li>
               </ul>
             ) : (
-                <ul className="nav navbar-nav pull-right">
-                  <li><NavLink to="/signin" activeClassName="active">Sign In</NavLink></li>
-                </ul>
-              )}
+              <ul className="nav navbar-nav pull-right">
+                <li><NavLink to="/signin" activeClassName="active">Sign In</NavLink></li>
+              </ul>
+            )}
           </div>{/* /.navbar-collapse */}
         </div>{/* /.container-fluid */}
       </nav >

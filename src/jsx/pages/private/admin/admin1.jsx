@@ -5,14 +5,14 @@ import MessageService from '../../../services/message-service';
 
 import CompanyService from '../../../services/company-service';
 
-import PictureUpload from "../../../components/picture-upload.jsx";
-var currentCSS = require("../../../../client-branding/company123/site-branding.scss")
+import PictureUpload from '../../../components/picture-upload.jsx';
+const currentCSS = require('../../../../client-branding/company123/site-branding.scss');
 class Admin1 extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      logourl: "",
+      logourl: '',
       company: {},
       message: '',
       error: '',
@@ -27,70 +27,65 @@ class Admin1 extends Component {
   }
 
   componentWillMount() {
-    var { company } = this.props
+    const { company } = this.props;
     CompanyService.getCompanyBySubdomain(company.subdomain, (err, data) => {
       if (err) {
-        this.setState({ message: '', error: err })
-      } else
+        this.setState({ message: '', error: err });
+      } else {
         this.setState({
           currentCSS: data.data.css,
           editCSS: data.data.css,
           company:
             { id: data.data.id, name: data.data.name, subdomain: data.data.subdomain, css: data.data.css, logo: data.data.logo }
-        })
-    })
+        });
+      }
+    });
   }
   handleImageUrl(file) {
     // upload endpoint
-    var { company } = this.state
-    const data = new FormData()
+    const { company } = this.state;
+    const data = new FormData();
     data.append('file', file, file.fileName);
     CompanyService.uploadLogo(data, (err, data) => {
       if (err) {
         this.setState({ message: '', error: err });
       } else {
-        company.log = data.data
-        this.setState({ message: "success upload!", error: '', logourl: data.data });
+        company.log = data.data;
+        this.setState({ message: 'success upload!', error: '', logourl: data.data });
       }
 
-    })
+    });
 
   }
 
   isCSS(cssString) {
     try {
-      JSON.parse(cssString)
-      return true
+      JSON.parse(cssString);
+      return true;
     } catch (err) {
-      return false
+      return false;
     }
 
   }
   handleCSS(e) {
 
-    this.setState({ editCSS: e.target.value })
+    this.setState({ editCSS: e.target.value });
   }
   handleSubmit() {
-    var { editCSS, company, logourl } = this.state
-    if (this.isCSS(editCSS))
-      this.setState({ currentCSS: JSON.parse(editCSS) })
-    else return this.setState({ error: "please correct input your css" })
-    if (!logourl)
-      return this.setState({ error: "please upload your new logo" })
-    company.css = editCSS
-    company.logo = logourl
-    this.setState(company)
+    const { editCSS, company, logourl } = this.state;
+    if (this.isCSS(editCSS)) { this.setState({ currentCSS: JSON.parse(editCSS) }); } else return this.setState({ error: 'please correct input your css' });
+    if (!logourl) { return this.setState({ error: 'please upload your new logo' }); }
+    company.css = editCSS;
+    company.logo = logourl;
+    this.setState(company);
 
     CompanyService.updateCompanyCustom(company, (err, data) => {
-      if (err)
-        this.setState({ message: "", error: err })
-      else if (data && data.success)
-        this.setState({ message: "Changed your style and logo" })
-    })
+      if (err) { this.setState({ message: '', error: err }); } else if (data && data.success) { this.setState({ message: 'Changed your style and logo' }); }
+    });
   }
 
   render() {
-    var { editCSS, company } = this.state
+    const { editCSS, company } = this.state;
     const divs = [];
     if (this.state.message || this.state.error) {
       divs.push(

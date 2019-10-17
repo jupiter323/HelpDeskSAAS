@@ -17,7 +17,7 @@ const TicketService = {
     Request.get(`/api/tickets${query}`, callback);
   },
 
-    /**
+  /**
    * Search Tickets
    *
    * @param {string}   query query string with paging options
@@ -32,7 +32,6 @@ const TicketService = {
     Request.get(`/api/tickets/search${query}`, callback);
   },
 
-  
 
   /**
    * Get Ticket by id
@@ -49,7 +48,6 @@ const TicketService = {
   },
 
 
-  
   /**
    * Get Ticket by id without auth
    *

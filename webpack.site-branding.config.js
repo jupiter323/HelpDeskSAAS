@@ -56,12 +56,12 @@ module.exports = {
           use: [
             {
               loader: 'css-loader',
-              options: cssLoaderOptions,
+              options: cssLoaderOptions
             },
             {
               loader: 'postcss-loader',
               options: {
-                plugins: () => [require('autoprefixer')]
+                plugins: () => { return [require('autoprefixer')]; }
               }
             },
             {

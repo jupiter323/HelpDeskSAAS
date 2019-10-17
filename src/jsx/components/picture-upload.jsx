@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import defaultImage from "../../assets/img/default-avatar.png";
+import defaultImage from '../../assets/img/default-avatar.png';
 
 class PictureUpload extends React.Component {
   constructor(props) {
@@ -13,16 +13,15 @@ class PictureUpload extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentWillReceiveProps(next) {
-    if (next.image != this.props.image)
-      this.setState({ imagePreviewUrl: next.image })
+    if (next.image != this.props.image) { this.setState({ imagePreviewUrl: next.image }); }
   }
   handleImageChange(e) {
     e.preventDefault();
-    let reader = new FileReader();
-    let file = e.target.files[0];
+    const reader = new FileReader();
+    const file = e.target.files[0];
     reader.onloadend = () => {
       this.setState({
-        file: file,
+        file,
         imagePreviewUrl: reader.result
       });
     };
@@ -42,9 +41,8 @@ class PictureUpload extends React.Component {
           <img
             src={this.state.imagePreviewUrl}
             className="picture-src"
-            alt="..."
-          />
-          <input type="file" onChange={e => this.handleImageChange(e)} />
+            alt="..." />
+          <input type="file" onChange={(e) => { return this.handleImageChange(e); }} />
         </div>
         <h6 className="description">Choose Your Logo</h6>
       </div>

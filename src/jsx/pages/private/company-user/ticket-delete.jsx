@@ -59,11 +59,12 @@ class TicketDelete extends Component {
               <strong className="col-xs-6 col-sm-8 col-md-6 col-lg-4">Ticket Name</strong>
               <div className="col-xs-4 col-sm-4 col-md-6">{ticket.name}</div>
             </div>
-            {ticket.messages.map((message, index) =>
-              <div key={index} className="row m-t-xs">
+            {ticket.messages.map((message, index) => {
+              return (<div key={index} className="row m-t-xs">
                 <strong className="col-xs-6 col-sm-8 col-md-6 col-lg-4">Message {index}</strong>
                 <div className="col-xs-4 col-sm-4 col-md-6">{message}</div>
-              </div>
+              </div>);
+            }
             )}
             <div className="row m-t-md">
               <div className="col-xs-12 col-sm-12 col-md-12">

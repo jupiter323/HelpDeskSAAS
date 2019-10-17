@@ -10,7 +10,7 @@ class TicketNew extends Component {
 
     this.state = {
       errors: [],
-      ticket: { name: '', messages: [], newMessage: "" }
+      ticket: { name: '', messages: [], newMessage: '' }
     };
 
     this.submit = this.submit.bind(this);
