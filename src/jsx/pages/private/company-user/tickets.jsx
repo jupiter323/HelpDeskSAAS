@@ -76,7 +76,7 @@ class Tickets extends Component {
         /* eslint-enable arrow-body-style */
       }
     ];
-
+    
     return (
       <div>
         <div>
@@ -97,6 +97,7 @@ class Tickets extends Component {
           filterable
           defaultPageSize={5}
           className="-striped -highlight" />
+     
       </div>
     );
   }

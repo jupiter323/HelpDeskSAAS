@@ -37,14 +37,14 @@ class PictureUpload extends React.Component {
   render() {
     return (
       <div className="picture-container">
-        <div className="picture">
+        <h6 className="description">Choose Your Logo</h6>
+        <div className={`picture ${this.props.receiveStyle}`}>
           <img
             src={this.state.imagePreviewUrl}
             className="picture-src"
             alt="..." />
           <input type="file" onChange={(e) => { return this.handleImageChange(e); }} />
-        </div>
-        <h6 className="description">Choose Your Logo</h6>
+        </div>        
       </div>
     );
   }

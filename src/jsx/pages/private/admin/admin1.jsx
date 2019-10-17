@@ -86,6 +86,7 @@ class Admin1 extends Component {
 
   render() {
     const { editCSS, company } = this.state;
+    const embedCode = `<script type="text/javascript" src="/js/main.js"></script><iframe src="http://${this.props.company.subdomain}.mernsaas.com:3000/companyuser/tickets"></iframe>`;
     const divs = [];
     if (this.state.message || this.state.error) {
       divs.push(
@@ -120,7 +121,20 @@ class Admin1 extends Component {
           </div>
         </div>
         <div className="row">
-          <button onClick={this.handleSubmit}>Submit</button>
+          <div className="col-sm-12 col-md-10 col-lg-6">
+            <button onClick={this.handleSubmit}>Submit</button>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-12 col-12">
+            <label className="control-label" htmlFor="name">Embed Code</label>
+          </div>
+          <div className="col-sm-12 col-md-9 col-lg-9">
+            <pre>
+              {embedCode}
+            </pre>
+
+          </div>
         </div>
       </div>
     );

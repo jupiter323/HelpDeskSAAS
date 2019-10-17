@@ -11,6 +11,8 @@ import SignUp from '../pages/signup';
 import Public1 from '../pages/public1';
 import SearchTickets from '../pages/ticket-search';
 import TicketView from '../pages/ticket-view';
+import TicketNewEmail from '../pages/ticket-new-email'
+import TicketSearchByNumber from '../pages/ticket-search-bynumber'
 
 import Profile from '../pages/private/profile';
 import ProfilePassword from '../pages/private/profile-password';
@@ -41,7 +43,9 @@ class MainRoutes extends React.Component {
         <Route exact path="/" render={(props) => (<Home {...props} company={this.props.company} />)} />
         <Route exact path="/public1" component={Public1} />
         <Route exact path="/ticket/search/" component={SearchTickets} />
+        <Route exact path="/ticket/searchticketnumber" component={TicketSearchByNumber} />
         <Route exact path="/ticket/view/:id" render={(props) => (<TicketView {...props} role={Auth.getRole()} />)} />
+        <Route exact path="/ticket/new" render={(props) => (<TicketNewEmail  {...props} company={this.props.company} />)} />
         <Route exact path="/signin" render={(props) => (<SignIn {...props} company={this.props.company} />)} />
         <Route exact path="/signup" render={(props) => (<SignUp {...props} company={this.props.company} />)} />
 
@@ -67,8 +71,8 @@ class MainRoutes extends React.Component {
 
             <Route exact path="/siteadmin/logs" userRoles="SiteAdmin" component={Logs} />
 
-            <Route exact path="/companyuser/tickets" render={(props) => (<Tickets {...props} role={Auth.getRole()} />)} />
-            <Route exact path="/companyuser/tickets/new" render={(props) => (<TicketNew {...props} role={Auth.getRole()} />)} />
+            <Route exact path="/companyuser/tickets" render={(props) => (<Tickets {...props} role={Auth.getRole()} company={this.props.company} />)} />
+            <Route exact path="/companyuser/tickets/new" render={(props) => (<TicketNew {...props} role={Auth.getRole()} company={this.props.company} />)} />
             <Route exact path="/companyuser/tickets/reply/:id" render={(props) => (<TicketReply {...props} role={Auth.getRole()} company={this.props.company} />)} />
             <Route exact path="/companyuser/tickets/delete/:id" render={(props) => (<TicketDelete {...props} role={Auth.getRole()} />)} />
 

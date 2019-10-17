@@ -28,8 +28,8 @@ class NavBar extends React.Component {
               {company.name ? (
                 company.name
               ) : (
-                <div>Help Desk React Node.js</div>
-              )}
+                  <div>Help Desk React Node.js</div>
+                )}
             </NavLink>
           </div>
 
@@ -37,6 +37,8 @@ class NavBar extends React.Component {
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav">
               <li><NavLink to="/public1" activeClassName="active">Public</NavLink></li>
+              <li><NavLink to="/ticket/searchticketnumber" activeClassName="active">Check ticket</NavLink></li>
+              {!isAuthenticated && <li><NavLink to="/ticket/new" activeClassName="active">Open a ticket</NavLink></li>}
               <li><NavLink to="/ticket/search/" activeClassName="active">Search all Tickets</NavLink></li>
               {isAuthenticated && <li><NavLink to="/private1" activeClassName="active">Private</NavLink></li>}
 
@@ -100,10 +102,10 @@ class NavBar extends React.Component {
                 </li>
               </ul>
             ) : (
-              <ul className="nav navbar-nav pull-right">
-                <li><NavLink to="/signin" activeClassName="active">Sign In</NavLink></li>
-              </ul>
-            )}
+                <ul className="nav navbar-nav pull-right">
+                  <li><NavLink to="/signin" activeClassName="active">Sign In</NavLink></li>
+                </ul>
+              )}
           </div>{/* /.navbar-collapse */}
         </div>{/* /.container-fluid */}
       </nav >

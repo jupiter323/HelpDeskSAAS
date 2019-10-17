@@ -150,12 +150,12 @@ exports.new = function (req, res, next) {
             var subject = `ticket number ${ticket._id}`
 
             //send email part
-            sendEmail(user.email, subject, '<strong>Created new ticket</strong>') //to customer
+            sendEmail(user.email, subject, `<strong>Created new ticket <h3>${ticket._id}<h3></strong>`) //to customer
             User.find({ company: user.company, role: "Admin" }, (err, admins) => { // to client
                 if (err) {
                     logger.error(err);
                 }
-                sendEmail(admins[0].email, subject, '<strong>Created new ticket</strong>') //to customer            
+                sendEmail(admins[0].email, subject, `<strong>Created new ticket <h3>${ticket._id}<h3></strong>`) //to customer            
             })
 
             return res.json({ success: true });
@@ -167,6 +167,50 @@ exports.new = function (req, res, next) {
 
 
 };
+
+// POST /api/tickets/email
+// Add new ticket email
+exports.newEmail = function (req, res, next) {
+    if (!req.body.ticket || typeof req.body.ticket !== 'object') {
+        return res.status(409).json({ success: false, errors: ['\'ticket\' param is required'] });
+    }
+
+    validateTicket(req.body.ticket, (errValidation, ticket) => {
+        if (errValidation) {
+            logger.error(err);
+            return res.json({ success: false, errors: [errValidation.message] });
+        }
+
+
+        var messages = [req.body.ticket.newMessage]
+        var ticket = {
+            ...req.body.ticket,
+            messages
+        }
+        const newTicket = new Ticket(ticket);
+        newTicket.save((err, ticket) => {
+            if (err) {
+                logger.error(err);
+                return res.json({ success: false, errors: [err.message] });
+            }
+            var subject = `ticket number ${ticket._id}`
+
+            //send email part
+            sendEmail(req.body.ticket.email, subject, `<strong>Created new ticket <h3>${ticket._id}<h3></strong>`) //to customer
+            User.find({ company: req.body.ticket.company, role: "Admin" }, (err, admins) => { // to client
+                if (err) {
+                    logger.error(err);
+                }
+                sendEmail(admins[0].email, subject, `<strong>Created new ticket <h3>${ticket._id}<h3></strong>`) //to customer            
+            })
+
+            return res.json({ success: true });
+
+
+        });
+    });
+};
+
 
 // DELETE /api/tickets/:id
 exports.destroy = (req, res, next) => {

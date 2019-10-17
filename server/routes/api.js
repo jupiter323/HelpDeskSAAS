@@ -67,14 +67,14 @@ router.post('/companies', authCheck([Roles.siteAdmin]), companyController.new);
 router.put('/companies', authCheck([Roles.siteAdmin]), companyController.updateCompany);
 
 // PUT /api/companies/customize
-router.put('/companies/customize', authCheck([Roles.siteAdmin,Roles.admin]), companyController.updateCompany);
+router.put('/companies/customize', authCheck([Roles.siteAdmin, Roles.admin]), companyController.updateCompany);
 
 
 // DELETE /api/companies/:id
 router.delete('/companies/:id', authCheck([Roles.siteAdmin]), companyController.destroy);
 
 // POST /api/companies/uploadlogo
-router.post('/companies/uploadlogo', authCheck([Roles.siteAdmin,Roles.admin]), upload.single('file'), companyController.uploadlogo);
+router.post('/companies/uploadlogo', authCheck([Roles.siteAdmin, Roles.admin]), upload.single('file'), companyController.uploadlogo);
 
 // GET /api/companies
 router.get('/logs', authCheck([Roles.siteAdmin]), logController.list);
@@ -93,6 +93,9 @@ router.get('/tickets/search/:id', ticketController.findNAuth);
 
 // POST /api/tickets
 router.post('/tickets', authCheck(), ticketController.new);
+
+// POST /api/tickets/email
+router.post('/tickets/email', ticketController.newEmail);
 
 // PUT /api/tickets
 router.put('/tickets', authCheck(), ticketController.updateTicket);

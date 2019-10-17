@@ -97,8 +97,18 @@ class TicketEditForm extends Component {
         <div className="col-sm-4 col-md-4 col-lg-4">
           <fieldset disabled={this.props.isFetching ? 'disabled' : ''}>
             <form className="form-horizontal" action="/" onSubmit={this.props.submit}>
+              {this.props.email &&
+
+                <div className="form-group">
+                  <label className="col-sm-3 control-label" htmlFor="email">Email</label>
+                  <div className="col-sm-9">
+                    <input type="text" className="form-control" id="email" name="email" value={this.props.ticket.email} placeholder="Your Email" onChange={this.changeInput} />
+                  </div>
+                </div>
+              }
+
               <div className="form-group">
-                <label className="col-sm-3 control-label" htmlFor="name">Name</label>
+                <label className="col-sm-3 control-label" htmlFor="name">Ticket Name</label>
                 <div className="col-sm-9">
                   <input type="text" className="form-control" readOnly={this.props.reply || this.props.view} id="name" name="name" value={this.props.ticket.name} placeholder="Ticket Name" onChange={this.changeInput} />
                 </div>

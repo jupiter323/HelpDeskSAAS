@@ -26,10 +26,10 @@ module.exports = new PassportLocalStrategy({
 
       userData.company = company._id;
       const newUser = new User(userData);
-      newUser.save((err) => {
+      newUser.save((err, user) => {
         if (err) { return done(err); }
 
-        return done(null);
+        return done(null, user);
       });
     });
   } else {
@@ -37,7 +37,7 @@ module.exports = new PassportLocalStrategy({
     newUser.save((err) => {
       if (err) { return done(err); }
 
-      return done(null);
+      return done(null, user);
     });
   }
 

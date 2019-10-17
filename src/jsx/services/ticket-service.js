@@ -91,6 +91,20 @@ const TicketService = {
     Request.post('/api/tickets', JSON.stringify({ ticket /* :ticket */ }), callback);
   },
 
+    /**
+   * Add new ticketemail
+   *
+   * @param {object}   company company object to add
+   * @param {function} callback (err, data)
+                       The function that is called after a service call
+                       error {object}: null if no error
+                       data {object}: The data set of a succesful call
+   */
+  newTicketEmail: (ticket, callback) => {
+    if (!$.isFunction(callback)) throw new Error('callback function is required');
+    Request.post('/api/tickets/email', JSON.stringify({ ticket /* :ticket */ }), callback);
+  },
+
   /**
    * Update a ticket
    *

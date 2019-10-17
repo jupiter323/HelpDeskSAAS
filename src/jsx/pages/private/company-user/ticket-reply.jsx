@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import TicketService from '../../../services/ticket-service';
 import TicketEditForm from '../../../components/ticket-edit-form';
+import CompanyService from '../../../services/company-service';
 
 class TicketReply extends Component {
   constructor(props) {
@@ -12,13 +13,24 @@ class TicketReply extends Component {
       id: props.match.params.id,
       errors: [],
       ticket: { name: '', messages: [], newMessage: '' },
-      isFetching: true
+      isFetching: true,
+      company: null,
+      logo: null
     };
 
     this.submit = this.submit.bind(this);
   }
 
   componentWillMount() {
+    if (this.props.company&&this.props.company.subdomain)
+      CompanyService.getCompanyBySubdomain(this.props.company.subdomain, (err, data) => {
+        if (err) {
+          this.setState({ errors: [err.message] })
+        } else {
+          this.setState({ company: data.data, css: JSON.parse(data.data.css) })
+        }
+
+      })
     TicketService.getTicket(this.state.id, (err, data) => {
       if (data && data.success) {
         this.setState({ ticket: { name: data.data.name, messages: data.data.messages, id: data.data.id, newMessage: '' }, isFetching: false });
@@ -27,6 +39,7 @@ class TicketReply extends Component {
         this.setState({ errors: [err.message] });
       }
     });
+
   }
 
   submit(evt) {
@@ -45,10 +58,13 @@ class TicketReply extends Component {
   }
 
   render() {
-    const embedCode = `<script type="text/javascript" src="/js/main.js"></script><iframe src="http://${this.props.company.subdomain}.mernsaas.com:3000/companyuser/tickets/reply/${this.state.id}"></iframe>`;
+    var { company, css } = this.state
     return (
-      <div>
+      <div style={css && { background: css.background, color: css.color }}>
         <div className="row">
+          <div className="col-sm-12 col-md-1 col-lg-1 logoImage">
+            <img src={company && company.logo} />
+          </div>
           <div className="col-sm-5 col-md-5 col-lg-5 form-header">
             <h4>Reply Ticket</h4>
           </div>
@@ -64,17 +80,6 @@ class TicketReply extends Component {
             isFetching={this.state.isFetching} />
         </div>
 
-        <div className="row">
-          <div className="col-sm-12 col-12">
-            <label className="control-label" htmlFor="name">Embed Code</label>
-          </div>
-          <div className="col-sm-12 col-md-9 col-lg-9">
-            <pre>
-              {embedCode}
-            </pre>
-
-          </div>
-        </div>
       </div>
     );
   }

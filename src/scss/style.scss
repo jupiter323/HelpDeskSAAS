@@ -4,7 +4,7 @@
 @import 'site-branding';
 
 body {
-  font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.43;
   color: #484848;
@@ -17,16 +17,17 @@ body {
 }
 
 .modal-content {
-	.modal-footer {
-		@include border-radius(6px);
-		background-color: #f5f5f5;
-	}
+  .modal-footer {
+    @include border-radius(6px);
+    background-color: #f5f5f5;
+  }
 }
 
 .form-header {
   h4 {
     font-weight: bold;
   }
+
   text-align: center;
   padding-bottom: 10px;
 }
@@ -37,13 +38,16 @@ body {
 .transition-enter {
   opacity: 0.01;
 }
+
 .transition-enter.transition-enter-active {
   opacity: 1;
   transition: 700ms;
 }
+
 .example-leave {
   opacity: 1;
 }
+
 .transition-leave.transition-leave-active {
   opacity: 0.01;
   transition: 700ms;
@@ -54,7 +58,20 @@ body {
 // and the paging buttons filling up height 100%
 .ReactTable {
   display: block !important;
+
   .-pagination .-btn {
     height: auto !important;
   }
+}
+
+.logoImage {
+  height: 70px;
+  width: 70px;
+
+  img {
+    object-fit: contain;
+    height: 70px;
+
+  }
+
 }
