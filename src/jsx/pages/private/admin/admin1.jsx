@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import MessageService from '../../../services/message-service';
 
 import CompanyService from '../../../services/company-service';
 
